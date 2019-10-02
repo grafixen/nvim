@@ -1,9 +1,19 @@
 """ Plugins
 
+" re-init plugins
+" call plug#begin('~/.config/nvim/plugged')
+" call plug#end()
+
 " load plugins
-if filereadable(expand("~/.config/nvim/vimrc.plugins"))
-  source ~/.config/nvim/vimrc.plugins
+if filereadable(expand("~/.config/nvim/plug-manager.vim"))
+  source ~/.config/nvim/plug-manager.vim
 endif
+
+""" ENVIRONMENT HOST
+let g:node_host_prog = expand('~/.nvm/versions/node/v10.15.3/bin/neovim-node-host')
+let g:python_host_prog = expand('/usr/local/bin/python')
+let g:python3_host_prog=expand('/usr/local/bin/python3')
+let g:ruby_host_prog = expand('/usr/local/bin/neovim-ruby-host')
 
 
 """ Aesthetics
@@ -23,7 +33,7 @@ highlight LineNr guibg=NONE ctermbg=NONE
 
 
 """ Other Configurations
-
+set mouse=a           " enable mouse support
 set backspace=2       " make backspace work like most other apps
 set ruler             " show the cursor position all the time
 set showcmd           " display incomplete commands
@@ -67,6 +77,11 @@ set number                " show
 set numberwidth=5         " line numbers width
 " set number relativenumber " hybrid relative number + absolute
 
+" statusline: syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 " highlight trailing whitespaces
 hi ExtraWhitespace ctermbg=172 guifg=#d78700
 match ExtraWhitespace /\s\+$/
@@ -109,6 +124,43 @@ if has('persistent_undo') && isdirectory(expand('~').'/.vim/backups')
   set undofile
 endif
 
+" open large files > 10 MB
+let g:LargeFile = 10 * 1024 * 1024
+augroup LargeFile
+  " files with filesize too large are recognized too (getfsize = -2)
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup END
+function! LargeFile()
+  set eventignore+=FileType " no syntax highlighting etc
+  setlocal bufhidden=unload " save memory when other file is viewed
+  setlocal undolevels=-1 " no undo possible
+  setlocal foldmethod=manual
+  setlocal noswapfile
+endfunction
+
+" show list of all filetypes
+function! SortUnique(list, ...)
+  let dictionary = {}
+  for i in a:list
+    let dictionary[string(i)] = i
+  endfor
+  if ( exists( 'a:1' ) )
+    let result = sort( values( dictionary ), a:1 )
+  else
+    let result = sort( values( dictionary ) )
+  endif
+  return result
+endfunction
+command! Filetypes execute "echo
+      \ join(
+        \ SortUnique(
+          \ map(
+            \ split(
+              \ globpath(&rtp, 'ftplugin/*.vim') . globpath(&rtp, 'syntax/*.vim'),
+              \ '\n'),
+            \ \"fnamemodify(v:val, ':t:r')\")),
+        \'\n')"
+
 " Neovim :Terminal
 tmap <Esc> <C-\><C-n>
 tmap <C-w> <Esc><C-w>
@@ -134,8 +186,10 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " XML
 nnoremap fx :%!xmllint --format --encode UTF-8 -<CR>
+
 " JSON
 nnoremap fj :%! cat % \| ruby -e "require 'json'; puts JSON.pretty_generate(JSON.parse(STDIN.read))"<CR>
+
 " Format and sort keys in JSON
 nnoremap fsj :%! cat % \| ruby -e "
   \ require 'json';
@@ -210,6 +264,7 @@ nmap <leader>e1 :call ColorDracula()<CR>
 nmap <leader>e2 :call ColorSeoul256()<CR>
 nmap <leader>e3 :call ColorForgotten()<CR>
 nmap <leader>e4 :call ColorZazen()<CR>
+nmap <leader>im :TsuImport<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
@@ -262,4 +317,3 @@ fun! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
