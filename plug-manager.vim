@@ -140,9 +140,13 @@ let g:ale_fix_on_save = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_warning = ''
 
-let g:airline_section_y = 'BN: %{bufnr("%")}'
-let g:airline_section_b = '%{strftime("%c")}'
-let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+"  make Airline look like powerline
+"  https://github.com/vim-airline/vim-airline/wiki/FAQ
+let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+
+" let g:airline_section_y = 'BN: %{bufnr("%")}
+" let g:airline_section_b = '%{strftime("%c")'
+" let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
