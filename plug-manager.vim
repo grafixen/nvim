@@ -35,7 +35,6 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'ervandew/supertab'
@@ -52,6 +51,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'metakirby5/codi.vim'
 Plug 'dkarter/bullets.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " FZF: Homebrew installation
 Plug '/usr/local/opt/fzf'
@@ -59,6 +60,9 @@ Plug 'junegunn/fzf.vim'
 
 " Emmet
 Plug 'mattn/emmet-vim'
+
+" Ecmascript
+Plug 'heavenshell/vim-jsdoc'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
@@ -108,30 +112,28 @@ let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 " Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
+let g:NERDAltDelims_javascript = 1
+let g:NERDAltDelims_typescript = 1
 " Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCustomDelimiters = {
+  \ 'javascript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
+  \ 'typescript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } }
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
-
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " Emmet
 " Tips & Tricks: https://medium.com/vim-drops/be-a-html-ninja-with-emmet-for-vim-feee15447ef1
 let g:user_emmet_leader_key=','
 
 " ALE
-let g:ale_fixers = {
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-\ 'javascript': ['eslint'],
+let g:ale_linters = {
+\ 'javascript': ['prettier', 'eslint'],
 \ 'typescript': ['tslint'],
-\ 'elixir': ['mix_format'] }
+\ 'elixir': ['mix_format'],
+\ '*': ['remove_trailing_lines', 'trim_whitespace'] }
+let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 let g:ale_fix_on_save = 1
@@ -140,23 +142,28 @@ let g:ale_fix_on_save = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_warning = ''
 
-"  make Airline look like powerline
-"  https://github.com/vim-airline/vim-airline/wiki/FAQ
-let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-
-" let g:airline_section_y = 'BN: %{bufnr("%")}
-" let g:airline_section_b = '%{strftime("%c")'
-" let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+" make Airline look like powerline
+" https://github.com/vim-airline/vim-airline/wiki/FAQ
+" let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+" let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . "\uE0A3" . '%{col(".")}'])
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
 " unicode symbols
-let g:airline_left_sep = '»'
+" check url below for separation glyph codes
+" https://github.com/ryanoasis/powerline-extra-symbols
 let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
+let g:airline_left_sep = '»'
 let g:airline_right_sep = '◀'
+let g:airline_right_sep = '«'
+" overrides above searators
+let g:airline_left_sep = "\uE0C4"
+let g:airline_left_sep = "\uE0C6"
+let g:airline_right_sep = "\uE0C5"
+let g:airline_right_sep = "\uE0C7"
+
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '␊'
 let g:airline_symbols.linenr = '␤'
@@ -165,19 +172,21 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
+let g:airline_symbols.readonly = ''
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-" let g:airline#extensions#tabline#enabled = 1
+
+" airline extensions
+let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+let g:airline#extensions#readonly#symbol   = '⊘'
+let g:airline#extensions#linecolumn#prefix = '¶'
+let g:airline#extensions#paste#symbol      = 'ρ'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -251,3 +260,40 @@ let g:fzf_colors = {
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+" Multiple Cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key             ='<C-c>'
+nnoremap <C-c> :call multiple_cursors#quit()<CR>
+
+" Lime Light
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
