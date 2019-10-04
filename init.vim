@@ -10,10 +10,10 @@ if filereadable(expand("~/.config/nvim/plug-manager.vim"))
 endif
 
 """ ENVIRONMENT HOST
-let g:node_host_prog = expand('~/.nvm/versions/node/v10.15.3/bin/neovim-node-host')
-let g:python_host_prog = expand('/usr/local/bin/python')
-let g:python3_host_prog=expand('/usr/local/bin/python3')
-let g:ruby_host_prog = expand('/usr/local/bin/neovim-ruby-host')
+let g:node_host_prog    = expand('~/.nvm/versions/node/v10.15.3/bin/neovim-node-host')
+let g:python_host_prog  = expand('/usr/local/bin/python')
+let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:ruby_host_prog    = expand('/usr/local/bin/neovim-ruby-host')
 
 
 """ Aesthetics
@@ -33,6 +33,8 @@ highlight LineNr guibg=NONE ctermbg=NONE
 
 
 """ Other Configurations
+set cursorline        " highlight current line
+set path=**           " Allow VIm to go through all dir and sub dir
 set mouse=a           " enable mouse support
 set backspace=2       " make backspace work like most other apps
 set ruler             " show the cursor position all the time
@@ -52,7 +54,7 @@ set autoindent        " indent
 set showmatch         " highlight matching brackets
 set lazyredraw        " redraw only when we need to"
 set hlsearch          " highlight same words while searching with Shift + *
-set encoding=utf-8    " set file encoding
+set encoding=UTF-8    " set file encoding
 set title             " show title
 set fillchars+=vert:\
 
@@ -77,11 +79,6 @@ set number                " show
 set numberwidth=5         " line numbers width
 " set number relativenumber " hybrid relative number + absolute
 
-" statusline: syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 " highlight trailing whitespaces
 hi ExtraWhitespace ctermbg=172 guifg=#d78700
 match ExtraWhitespace /\s\+$/
@@ -90,7 +87,7 @@ match ExtraWhitespace /\s\+$/
 set autoread
 
 " Auto Completion
-filetype plugin indent on
+filetype plugin indent on  " recognizes filetype, plugins and indent
 set omnifunc=syntaxcomplete#Complete
 
 " fold method definitions
@@ -164,17 +161,18 @@ command! Filetypes execute "echo
 " Neovim :Terminal
 tmap <Esc> <C-\><C-n>
 tmap <C-w> <Esc><C-w>
-"tmap <C-d> <Esc>:q<CR>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
 
 """ Filetype-Specific Configurations
 
-" HTML, XML, Jinja
+" HTML, XML, Jinja, Javascript, Typescript
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType js setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType ts setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
@@ -277,26 +275,18 @@ nmap <leader>g :Goyo<CR>
 nmap <leader>h :RainbowParentheses!!<CR>
 nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
+nmap <leader>l :Limelight!!<CR>
 xmap <leader>l :Limelight!!<CR>
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 
 " toggle line numbers
-nmap <C-N><C-N> :set invnumber<CR>
+nnoremap <silent> <C-n><C-n> :set invnumber<CR>
+nnoremap <silent> <C-m><C-m> :set invrelativenumber<CR>
 
 " Escape
 inoremap jj <ESC>
-inoremap <ESC> <nop>
-
-" Move to Beginning/End of Line
-nnoremap B ^
-nnoremap E $
-nnoremap ^ <nop>
-nnoremap $ <nop>
-
-" Jump to End of Line and Edit
-nnoremap ;; <ESC>
 
 " move line up / down with Alt + j / k
 nnoremap ∆ :m .+1<CR>==
@@ -317,3 +307,45 @@ fun! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+""" Toggle Wrap
+" Press C to Toggle between Text Wrap and navigate wrapped lines with arrows
+" https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
+nnoremap <silent> C :call ChooseWrap()<CR>
+function ChooseWrap()
+  let l:choice=confirm("Toggle Wrapping?", "&yes\n&no", 0)
+  if l:choice==1
+    if &wrap
+      call DisableDisplayWrapping()
+    else
+      call EnableDisplayWrapping()
+    endif
+  endif
+endfunction
+
+function EnableDisplayWrapping()
+  if !&wrap
+    setlocal wrap
+    " don't skip wrapped lines
+    nnoremap <buffer> <Up> gk
+    nnoremap <buffer> <Down> gj
+    inoremap <buffer> <Up> <C-O>gk
+    inoremap <buffer> <Down> <C-O>gj
+    vnoremap <buffer> <Up> gk
+    vnoremap <buffer> <Down> gj
+  endif
+endfunction
+
+function DisableDisplayWrapping()
+  if &wrap
+    setlocal nowrap
+    nunmap <buffer> <Up>
+    nunmap <buffer> <Down>
+    iunmap <buffer> <Up>
+    iunmap <buffer> <Down>
+    vunmap <buffer> <Up>
+    vunmap <buffer> <Down>
+  endif
+endfunction
+
