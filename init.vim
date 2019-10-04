@@ -252,7 +252,6 @@ endfunction
 """ Custom Mappings
 
 let mapleader=","
-" nmap <leader>q :NERDTreeToggle<CR>
 nmap <Leader>q :NERDTreeToggle %:p:h<CR>
 nmap \ <leader>q
 nmap <leader>w :TagbarToggle<CR>
