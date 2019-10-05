@@ -66,7 +66,7 @@ Plug 'heavenshell/vim-jsdoc'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 Plug 'carlitux/deoplete-ternjs'
 Plug 'dense-analysis/ale'
 
@@ -93,6 +93,8 @@ call plug#end()
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
 " NERDTree
 let NERDTreeShowHidden=1
@@ -116,8 +118,8 @@ let g:NERDAltDelims_javascript = 1
 let g:NERDAltDelims_typescript = 1
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = {
-  \ 'javascript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
-  \ 'typescript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } }
+\ 'javascript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
+\ 'typescript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } }
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
@@ -200,7 +202,19 @@ let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Tern
+" https://github.com/carlitux/deoplete-ternjs
 let g:tern_request_timeout = 6000
+let g:deoplete#sources#ternjs#filetypes = [
+\ 'jsx',
+\ 'javascript',
+\ 'javascript.jsx',
+\ ]
+
+let g:deoplete#sources#ternjs#case_insensitive = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#include_keywords = 1
+
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 let g:deoplete#sources#tss#javascript_support = 1
@@ -241,25 +255,48 @@ let g:indentLine_color_gui = '#363949'
 let g:tagbar_width = 30
 let g:tagbar_iconchars = ['↠', '↡']
 
+" CTag typescript support
+" https://github.com/majutsushi/tagbar/wiki#typescript
+" https://github.com/jb55/typescript-ctags/blob/master/.ctags
+let g:tagbar_type_typescript = {
+\ 'ctagsbin' : 'tstags',
+\ 'ctagsargs' : '-f-',
+\ 'kinds': [
+  \ 'e:enums:0:1',
+  \ 'f:function:0:1',
+  \ 't:typealias:0:1',
+  \ 'M:Module:0:1',
+  \ 'I:import:0:1',
+  \ 'i:interface:0:1',
+  \ 'C:class:0:1',
+  \ 'm:method:0:1',
+  \ 'p:property:0:1',
+  \ 'v:variable:0:1',
+  \ 'c:const:0:1',
+\ ],
+\ 'sort' : 0
+\ }
+
+
 " fzf-vim
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
+\ 'ctrl-t': 'tab split',
+\ 'ctrl-s': 'split',
+\ 'ctrl-v': 'vsplit' }
 let g:fzf_colors = {
-  \ 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'Type'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Character'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+\ 'fg':      ['fg', 'Normal'],
+\ 'bg':      ['bg', 'Normal'],
+\ 'hl':      ['fg', 'Comment'],
+\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+\ 'hl+':     ['fg', 'Statement'],
+\ 'info':    ['fg', 'Type'],
+\ 'border':  ['fg', 'Ignore'],
+\ 'prompt':  ['fg', 'Character'],
+\ 'pointer': ['fg', 'Exception'],
+\ 'marker':  ['fg', 'Keyword'],
+\ 'spinner': ['fg', 'Label'],
+\ 'header':  ['fg', 'Comment'] }
 
 " Multiple Cursors
 let g:multi_cursor_use_default_mapping=0
