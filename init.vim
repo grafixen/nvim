@@ -86,9 +86,18 @@ match ExtraWhitespace /\s\+$/
 " automatically refresh changed files
 set autoread
 
+" recognizes filetype, plugins and indent
+filetype plugin indent on
+
 " Auto Completion
-filetype plugin indent on  " recognizes filetype, plugins and indent
-set omnifunc=syntaxcomplete#Complete
+" Ctrl+x Ctrl+o to activate
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+          \	if &omnifunc == "" |
+          \		set omnifunc=syntaxcomplete#Complete |
+          \	endif
+endif
+
 
 " fold method definitions
 " set foldenable        " enable folding
