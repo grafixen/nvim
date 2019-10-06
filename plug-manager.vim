@@ -37,6 +37,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -49,7 +50,6 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/loremipsum'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'metakirby5/codi.vim'
 Plug 'dkarter/bullets.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -301,7 +301,7 @@ let g:fzf_colors = {
 " Multiple Cursors
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_select_all_word_key = '<Down>' " <Down> is equivalent to <Alt+Arrow Down>
 let g:multi_cursor_start_key           = 'g<C-n>'
 let g:multi_cursor_select_all_key      = 'g<A-n>'
 let g:multi_cursor_next_key            = '<C-n>'
@@ -334,3 +334,11 @@ let g:limelight_eop = '\ze\n^\s'
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
+
+" Bullets.vim
+let g:bullets_enabled_file_types = [
+\ 'markdown',
+\ 'text',
+\ 'gitcommit',
+\ 'scratch'
+\ ]
