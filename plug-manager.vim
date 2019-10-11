@@ -131,9 +131,10 @@ let g:user_emmet_leader_key=','
 
 " ALE
 let g:ale_linters = {
+\ 'elixir': ['mix_format'],
 \ 'javascript': ['prettier', 'eslint'],
 \ 'typescript': ['tslint'],
-\ 'elixir': ['mix_format'],
+\ 'sql': ['sqlint'],
 \ '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
 let g:ale_sign_error = '❌'
@@ -297,6 +298,22 @@ let g:fzf_colors = {
 \ 'marker':  ['fg', 'Keyword'],
 \ 'spinner': ['fg', 'Label'],
 \ 'header':  ['fg', 'Comment'] }
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" Custom statusline
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 
 " Multiple Cursors
 let g:multi_cursor_use_default_mapping=0
