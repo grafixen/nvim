@@ -11,6 +11,8 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -53,6 +55,8 @@ Plug 'honza/vim-snippets'
 Plug 'dkarter/bullets.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'mhinz/vim-grepper'
+Plug 'christoomey/vim-tmux-navigator'
 
 " FZF: Homebrew installation
 Plug '/usr/local/opt/fzf'
@@ -69,6 +73,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 Plug 'carlitux/deoplete-ternjs'
 Plug 'dense-analysis/ale'
+
+" SQL Syntax
+Plug 'shmup/vim-sql-syntax'
 
 " Typescript
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -102,24 +109,22 @@ let g:NERDTreeDirArrowExpandable = '↠'
 let g:NERDTreeDirArrowCollapsible = '↡'
 
 " NERDTree Tab Navigation
-map  <C-l> :tabn<CR>
-map  <C-h> :tabp<CR>
-map  <C-t> :tabnew<CR>
+map <C-t>l :tabn<CR>
+map <C-t>h :tabp<CR>
+map <C-t>t :tabnew<CR>
+
+" Buffer Navigation
+map gl :bn<CR>
+map gh :bp<CR>
 
 " NERDCommenter
+" !!! See link for more config options: https://github.com/scrooloose/nerdcommenter !!!
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_javascript = 1
-let g:NERDAltDelims_typescript = 1
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = {
-\ 'javascript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
-\ 'typescript': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } }
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
@@ -134,7 +139,6 @@ let g:ale_linters = {
 \ 'elixir': ['mix_format'],
 \ 'javascript': ['prettier', 'eslint'],
 \ 'typescript': ['tslint'],
-\ 'sql': ['sqlint'],
 \ '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
 let g:ale_sign_error = '❌'
@@ -311,9 +315,27 @@ function! s:fzf_statusline()
   highlight fzf3 ctermfg=237 ctermbg=251
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
-
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" Redefine Rg command to allow rg arguments to pass through
+" such as `-tyaml` for yaml files or `-F` for literal strings
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" Activate FZF Statusline
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
+" vim-grepper
+let g:grepper={}
+let g:grepper.tools=["rg"]
 
 " Multiple Cursors
 let g:multi_cursor_use_default_mapping=0
