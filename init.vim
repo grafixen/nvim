@@ -135,6 +135,8 @@ let g:LargeFile = 10 * 1024 * 1024
 augroup LargeFile
   " files with filesize too large are recognized too (getfsize = -2)
   autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+  " no syntax highlighting if big file
+  autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif
 augroup END
 function! LargeFile()
   set eventignore+=FileType " no syntax highlighting etc
@@ -261,7 +263,7 @@ endfunction
 """ Custom Mappings
 
 let mapleader=","
-nmap <Leader>q :NERDTreeToggle %:p:h<CR>
+nmap <silent> <expr> <leader>q g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 nmap \ <leader>q
 nmap <leader>w :TagbarToggle<CR>
 nmap <leader>ee :Colors<CR>
@@ -289,10 +291,48 @@ nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 
-" Find & Replace
+" NERD Close all Buffers but NERD
+nnoremap <leader><leader>C :bufdo bwipeout<CR>
+nnoremap <leader><leader>c :bp\|bd #<CR>
+
+" FZF
+nnoremap <silent> <leader><leader>b :Buffers<CR>
+nnoremap <silent> <leader><leader>f :GFiles<CR>
+nnoremap <silent> <leader><leader>F :Locate /<CR>
+nnoremap <silent> <leader><leader>l :Lines<CR>
+nnoremap <silent> <leader><leader>m :Maps<CR>
+" Lazy loading
+nmap gr <plug>(GrepperOperator)
+xmap gr <plug>(GrepperOperator)
+" Find & Replace: In All Files
+" After searching or text, press this mapping to do a project wide find and
+" replace. This one applies to all maches accross all files instead of just
+" the current file
+nmap <leader><leader>r
+  \ :let @s='\<'.expand('<cword>').'\>'<CR>
+  \ :Grepper -cword -noprompt<CR>
+  \ :cfdo %s/<C-r>s//g \| update
+  \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" The same as above except it works with a visual selection.
+xmap <leader><leader>r
+  \ "sy
+  \ gvgr
+  \ :cfdo %s/<C-r>s//g \| update
+  \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" Completion Helper
+" Global line completion (not just open buffers. ripgrep required.)
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+
+
+" Find & Replace: In Current File
+" Works by
+" 1. Searching for word/pattern (to be replace)
+" 2. Hit <leader>r to replace all found occurrences
 nnoremap <leader>r :%s///g<Left><Left>
-" nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
-" nnoremap <leader>rc :%s/\<<C-r><C-w>\>//gc<left><left><left>
 
 " toggle line numbers
 nnoremap <silent> <C-n><C-n> :set invnumber<CR>
