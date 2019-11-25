@@ -58,6 +58,12 @@ set encoding=UTF-8    " set file encoding
 set title             " show title
 set fillchars+=vert:\
 
+" coc.vim optimization
+set cmdheight=2       " better display for messages
+set updatetime=300    " bad experience if default 4000
+set shortmess+=c      " do not give |ins-completion-menu| messages
+set signcolumn=yes    " always show signcolumns
+
 " spaces
 set tabstop=2     " tab width
 set shiftwidth=2  " indent size
@@ -301,6 +307,7 @@ nnoremap <silent> <leader><leader>f :GFiles<CR>
 nnoremap <silent> <leader><leader>F :Locate /<CR>
 nnoremap <silent> <leader><leader>l :Lines<CR>
 nnoremap <silent> <leader><leader>m :Maps<CR>
+
 " Lazy loading
 nmap gr <plug>(GrepperOperator)
 xmap gr <plug>(GrepperOperator)
