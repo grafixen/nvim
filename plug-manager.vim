@@ -37,9 +37,9 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi'
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
@@ -72,7 +72,7 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 Plug 'carlitux/deoplete-ternjs'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
 " SQL Syntax
 Plug 'shmup/vim-sql-syntax'
@@ -135,15 +135,15 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:user_emmet_leader_key=','
 
 " ALE
-let g:ale_linters = {
-\ 'elixir': ['mix_format'],
-\ 'javascript': ['prettier', 'eslint'],
-\ 'typescript': ['tslint'],
-\ '*': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_fix_on_save = 1
+" let g:ale_linters = {
+" \ 'elixir': ['mix_format'],
+" \ 'javascript': ['prettier', 'eslint'],
+" \ 'typescript': ['tslint'],
+" \ '*': ['remove_trailing_lines', 'trim_whitespace'] }
+" let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
+" let g:ale_fix_on_save = 1
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -196,33 +196,35 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_ignore_case = 1
+" let g:deoplete#enable_smart_case = 1
+" let g:deoplete#enable_camel_case = 1
+" let g:deoplete#enable_refresh_always = 1
+" let g:deoplete#max_abbr_width = 0
+" let g:deoplete#max_menu_width = 0
+" let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+" call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
 " Tern
-" https://github.com/carlitux/deoplete-ternjs
 let g:tern_request_timeout = 6000
-let g:deoplete#sources#ternjs#filetypes = [
-\ 'jsx',
-\ 'javascript',
-\ 'javascript.jsx',
-\ ]
 
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#include_keywords = 1
+" Tern - deoplete
+" https://github.com/carlitux/deoplete-ternjs
+" let g:deoplete#sources#ternjs#filetypes = [
+" \ 'jsx',
+" \ 'javascript',
+" \ 'javascript.jsx',
+" \ ]
+
+" let g:deoplete#sources#ternjs#case_insensitive = 1
+" let g:deoplete#sources#ternjs#docs = 1
+" let g:deoplete#sources#ternjs#types = 1
+" let g:deoplete#sources#ternjs#include_keywords = 1
+" let g:deoplete#sources#tss#javascript_support = 1
 
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
-let g:deoplete#sources#tss#javascript_support = 1
 
 " Tsuquyomi
 let g:tsuquyomi_javascript_support = 1
