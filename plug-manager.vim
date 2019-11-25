@@ -58,7 +58,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'mhinz/vim-grepper'
 Plug 'christoomey/vim-tmux-navigator'
 
-" FZF: Homebrew installation
+" FZF - Homebrew installation
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -71,7 +71,7 @@ Plug 'heavenshell/vim-jsdoc'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-Plug 'carlitux/deoplete-ternjs'
+" Plug 'carlitux/deoplete-ternjs'
 " Plug 'dense-analysis/ale'
 
 " SQL Syntax
