@@ -58,6 +58,9 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'mhinz/vim-grepper'
 Plug 'christoomey/vim-tmux-navigator'
 
+" AutoComplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " FZF - Homebrew installation
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
