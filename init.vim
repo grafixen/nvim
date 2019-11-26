@@ -19,10 +19,12 @@ let g:ruby_host_prog    = expand('/usr/local/bin/neovim-ruby-host')
 """ Aesthetics
 syntax on
 colorscheme onedark
-highlight Pmenu guibg=white guifg=black gui=bold
 highlight Comment gui=bold
 highlight Normal gui=none
 highlight NonText guibg=none
+
+" popup menu color
+" highlight Pmenu guibg=white guifg=black gui=bold
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
@@ -33,6 +35,7 @@ highlight LineNr guibg=NONE ctermbg=NONE
 
 
 """ Other Configurations
+set hidden            " CoC: if hidden is not set, TextEdit might fail.
 set cursorline        " highlight current line
 set path=**           " Allow VIm to go through all dir and sub dir
 set mouse=a           " enable mouse support
@@ -63,6 +66,8 @@ set cmdheight=2       " better display for messages
 set updatetime=300    " bad experience if default 4000
 set shortmess+=c      " do not give |ins-completion-menu| messages
 set signcolumn=yes    " always show signcolumns
+" enable highlight
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " spaces
 set tabstop=2     " tab width
