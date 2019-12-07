@@ -276,7 +276,10 @@ endfunction
 let mapleader=","
 nmap <silent> <expr> <leader>q g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 nmap \ <leader>q
-nmap <leader>w :TagbarToggle<CR>
+" nmap <leader>w :TagbarToggle<CR>
+nmap <leader>w :Vista!!<CR>
+nmap <leader>wf :Vista finder<CR>
+nmap <leader>ww :Vista coc<CR>
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
 nmap <leader>e1 :call ColorDracula()<CR>
@@ -291,8 +294,6 @@ nmap <leader>s <C-w>s<C-w>j:terminal<CR>
 nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
 nmap <leader>d <Plug>(pydocstring)
 nmap <leader>f :Files<CR>
-nmap <leader>ff :Rg<CR>
-nmap <leader>g :Goyo<CR>
 nmap <leader>h :RainbowParentheses!!<CR>
 nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
@@ -301,6 +302,7 @@ xmap <leader>l :Limelight!!<CR>
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
+
 
 " NERD Close all Buffers but NERD
 nnoremap <leader><leader>C :bufdo bwipeout<CR>
@@ -312,6 +314,10 @@ nnoremap <silent> <leader><leader>f :GFiles<CR>
 nnoremap <silent> <leader><leader>F :Locate /<CR>
 nnoremap <silent> <leader><leader>l :Lines<CR>
 nnoremap <silent> <leader><leader>m :Maps<CR>
+
+" Grep selection with Rg
+xnoremap <leader>g y :Rg "<CR>
+nnoremap <Leader>g :Rg <C-r><C-w><CR>
 
 " Lazy loading
 nmap gr <plug>(GrepperOperator)
@@ -339,6 +345,10 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
+" Markdown Preview Mapping
+nmap <leader><leader>pp <Plug>MarkdownPreview
+nmap <leader><leader>ps <Plug>MarkdownPreviewStop
+nmap <leader><leader>pt <Plug>MarkdownPreviewToggle
 
 " Find & Replace: In Current File
 " Works by
@@ -347,7 +357,6 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 nnoremap <leader>r :%s///g<Left><Left>
 
 " toggle line numbers
-nnoremap <silent> <C-n><C-n> :set invnumber<CR>
 nnoremap <silent> <C-m><C-m> :set invrelativenumber<CR>
 
 " Escape
@@ -366,12 +375,27 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 
 " Remove trailing whitespace on save
 fun! <SID>StripTrailingWhitespaces()
+  " Don't strip on these filetypes
+  if &ft =~ 'markdown'
+    return
+  endif
   let l = line(".")
   let c = col(".")
   %s/\s\+$//e
   call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+""" Quotes Toggling
+" 'quote' a word
+nnoremap qw :silent! normal mpea'<Esc>bi'<Esc>`pl
+" double "quote" a word
+" NOTE: adds additional double quote at the end if auto-pairs plugin is
+" installed
+nnoremap qd :silent! normal mpea"<Esc>bi"<Esc>`pl
+" remove quotes from a word
+nnoremap wq :silent! normal mpeld bhd `ph<CR>
 
 
 """ Toggle Wrap
@@ -413,4 +437,3 @@ function DisableDisplayWrapping()
     vunmap <buffer> <Down>
   endif
 endfunction
-
