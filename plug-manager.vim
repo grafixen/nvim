@@ -14,7 +14,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'joshdick/onedark.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-journal'
@@ -34,13 +33,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-jedi'
-" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-" Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'alvan/vim-closetag'
@@ -58,8 +52,25 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'mhinz/vim-grepper'
 Plug 'christoomey/vim-tmux-navigator'
 
+" Markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" Tags
+" Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
+
 " AutoComplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi'
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" Plug 'ervandew/supertab'
+
+" Linters
+" Plug 'dense-analysis/ale'
+" Plug 'carlitux/deoplete-ternjs'
 
 " FZF - Homebrew installation
 Plug '/usr/local/opt/fzf'
@@ -74,8 +85,6 @@ Plug 'heavenshell/vim-jsdoc'
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-" Plug 'carlitux/deoplete-ternjs'
-" Plug 'dense-analysis/ale'
 
 " SQL Syntax
 Plug 'shmup/vim-sql-syntax'
@@ -395,31 +404,67 @@ let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#363949'
 
 " TagBar
-let g:tagbar_width = 30
-let g:tagbar_iconchars = ['↠', '↡']
+" let g:tagbar_width = 30
+" let g:tagbar_iconchars = ['↠', '↡']
 
 " CTag typescript support
 " https://github.com/majutsushi/tagbar/wiki#typescript
 " https://github.com/jb55/typescript-ctags/blob/master/.ctags
-let g:tagbar_type_typescript = {
-\ 'ctagsbin' : 'tstags',
-\ 'ctagsargs' : '-f-',
-\ 'kinds': [
-  \ 'e:enums:0:1',
-  \ 'f:function:0:1',
-  \ 't:typealias:0:1',
-  \ 'M:Module:0:1',
-  \ 'I:import:0:1',
-  \ 'i:interface:0:1',
-  \ 'C:class:0:1',
-  \ 'm:method:0:1',
-  \ 'p:property:0:1',
-  \ 'v:variable:0:1',
-  \ 'c:const:0:1',
-\ ],
-\ 'sort' : 0
-\ }
+" let g:tagbar_type_typescript = {
+" \ 'ctagsbin' : 'tstags',
+" \ 'ctagsargs' : '-f-',
+" \ 'kinds': [
+"   \ 'e:enums:0:1',
+"   \ 'f:function:0:1',
+"   \ 't:typealias:0:1',
+"   \ 'M:Module:0:1',
+"   \ 'I:import:0:1',
+"   \ 'i:interface:0:1',
+"   \ 'C:class:0:1',
+"   \ 'm:method:0:1',
+"   \ 'p:property:0:1',
+"   \ 'v:variable:0:1',
+"   \ 'c:const:0:1',
+" \ ],
+" \ 'sort' : 0
+" \ }
 
+" Vista
+" Show the nearest method/function in the statusline
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" Options
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+" Available: ['ale', 'coc', 'ctags', 'lcn', 'vim_lsc', 'vim_lsp']
+let g:vista_default_executive = 'ctags'
+
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:50%']
+
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+
+" how to show the definition
+let g:vista_echo_cursor_strategy = 'floating_win'
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 
 " fzf-vim
 let g:fzf_action = {
@@ -511,6 +556,54 @@ let g:limelight_eop = '\ze\n^\s'
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
+
+
+" Markdown
+set conceallevel=2
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+
+" Markdown Preview
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 1
+
+" use a custom markdown style must be absolute path
+let g:mkdp_markdown_css = ''
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+let g:mkdp_preview_options = {
+\ 'mkit': {},
+\ 'katex': {},
+\ 'uml': {},
+\ 'maid': {},
+\ 'disable_sync_scroll': 0,
+\ 'sync_scroll_type': 'middle',
+\ 'hide_yaml_meta': 1,
+\ 'sequence_diagrams': {}
+\ }
 
 " Bullets.vim
 let g:bullets_enabled_file_types = [
