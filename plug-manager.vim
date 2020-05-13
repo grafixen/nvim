@@ -51,7 +51,7 @@ Plug 'vim-scripts/loremipsum'
 Plug 'Yggdroot/indentLine'
 
 " CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Ecmascript
 Plug 'heavenshell/vim-jsdoc'
