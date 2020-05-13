@@ -8,11 +8,6 @@ endif
 " call plug#begin('~/.config/nvim/plugged')
 " call plug#end()
 
-
-""" ENVIRONMENT HOST
-let g:python_host_prog  = expand('/usr/local/bin/python')
-
-
 """ AESTHETICS
 syntax on
 colorscheme dracula
@@ -238,11 +233,16 @@ xmap <leader>a gaip*
 nmap <leader>a gaip*
 nmap <leader>s ysiw
 nmap <leader>d <Plug>(pydocstring)
-nmap <leader>f :RangerTab<CR>
 nmap <leader>h :RainbowParentheses!!<CR>
 nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
 nmap <silent> <leader><leader> :noh<CR>
+
+" ranger
+nmap <leader>ff :RangerEdit<CR>
+nmap <leader>fv :RangerVSplit<CR>
+nmap <leader>fs :RangerSplit<CR>
+nmap <leader>ft :RangerTab<CR>
 
 " tab navigation
 nnoremap <Tab>    :tabnext<CR>
@@ -289,8 +289,8 @@ nnoremap <leader>rg :Rg<Space>
 vnoremap <leader>rg "gy:Rg<Space><C-r>g<CR>
 
 " lazy loading
-nmap gr <plug>(GrepperOperator)
-xmap gr <plug>(GrepperOperator)
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
 
 " find & replace: in all files
 "   after searching or text, press this mapping to do a project wide find and
@@ -340,13 +340,13 @@ vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
 " window resize (simply)
-nnoremap <S-Right> <C-W>>
-nnoremap <S-Left>  <C-W><
-nnoremap <S-Down>  <C-W>-
-nnoremap <S-Up>    <C-W>+
+nnoremap <S-Left> :vertical resize -4<CR>
+nnoremap <S-Right> :vertical resize +4<CR>
+nnoremap <S-Up> :resize -4<CR>
+nnoremap <S-Down> :resize +4<CR>
 
 " escape
-inoremap jj <ESC>
+inoremap jk <ESC>
 
 
 """ CUSTOM FUNCTIONS
@@ -413,3 +413,20 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+" Save current file every time we leave insert mode or leave vim
+augroup autoSaveAndRead
+  autocmd!
+  " autocmd InsertLeave,FocusLost * call <SID>autosave()
+  autocmd WinLeave,FocusLost * call <SID>autosave()
+  autocmd CursorHold * silent! checktime
+augroup END
+
+function! <SID>autosave()
+  if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
+    update
+    call ale#Queue(0)   " Trigger linting immediately
+  endif
+endfunction
+
+" <escape> in normal mode also saves
+nnoremap <esc> :call <SID>autosave()<CR>

@@ -1,7 +1,10 @@
 {
+  "prettier.eslintIntegration": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "markdown", "typescript"],
   "snippets.ultisnips.directories":
   [
     "UltiSnips",
     "~/.config/nvim/plugged/vim-snippets/UltiSnips"
-  ]
+  ],
+  "tsserver.npm": "/usr/local/bin/npm"
 }

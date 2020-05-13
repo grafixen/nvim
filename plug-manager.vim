@@ -103,16 +103,35 @@ call plug#end()
 
 """ PLUGIN CONFIGURATION
 " Ale
-let g:ale_linters = {
-\ 'elixir': ['mix_format'],
-\ 'javascript': ['prettier', 'eslint'],
-\ 'typescript': ['prettier', 'eslint'],
-\ '*': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_linters_explicit = 1    " Only run linters named in ale_linters settings.
+if !hlexists('ALEVirtualTextError')
+  highlight link ALEVirtualTextError ErrorMsg
+  highlight link ALEVirtualTextWarning SpecialChar
+endif
+
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '  ---> '
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_delay = 100
+let g:ale_sign_column_always = 1
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
-let g:ale_lint_on_enter = 0
+let g:ale_echo_msg_format = '[%linter% %code%] %s'
+
 let g:ale_fix_on_save = 1
+let g:ale_open_list = 0             " Don't open the loclist when reading a file (if there are errors)
+let g:ale_linters_explicit = 1      " Only run linters named in ale_linters settings.
+
+let b:ale_linters = ['flow-language-server'] " Enables only Flow for JavaScript (https://www.flow.org/)
+let g:ale_linters = {
+\ 'javascript': ['eslint', 'flow-language-server'],
+\ 'typescript': ['eslint', 'tsserver', 'typecheck'],
+\}
+let g:ale_fixers = {
+\ 'css': ['prettier'],
+\ 'javascript': ['prettier', 'eslint'],
+\ 'typescript': ['prettier', 'eslint'],
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
 
 " Airline
 let g:airline_theme = 'murmur'
@@ -174,8 +193,27 @@ let g:bullets_enabled_file_types = [
 \ ]
 
 " CoC
-"   Use tab for trigger completion with characters ahead and navigate.
-"   Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+let g:coc_node_path = '~/.nvm/versions/node/v12.16.3/bin/node'
+let g:coc_global_extensions = [
+\ 'coc-angular',
+\ 'coc-css',
+\ 'coc-emmet',
+\ 'coc-eslint',
+\ 'coc-highlight',
+\ 'coc-json',
+\ 'coc-html',
+\ 'coc-lists',
+\ 'coc-marketplace',
+\ 'coc-prettier',
+\ 'coc-snippets',
+\ 'coc-tabnine',
+\ 'coc-tslint-plugin',
+\ 'coc-tsserver',
+\ 'coc-yank'
+\ ]
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
@@ -188,10 +226,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Navigate snippet placeholders using tab
 let g:coc_snippet_next = '<Tab>'
@@ -212,12 +247,37 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" instead of having ~/.vim/coc-settings.json
+let s:LSP_CONFIG = {
+\  'flow': {
+\    'command': exepath('flow'),
+\    'args': ['lsp'],
+\    'filetypes': ['javascript', 'javascriptreact'],
+\    'initializationOptions': {},
+\    'requireRootPattern': 1,
+\    'settings': {},
+\    'rootPatterns': ['.flowconfig']
+\  }
+\}
+
+let s:languageservers = {}
+for [lsp, config] in items(s:LSP_CONFIG)
+  let s:not_empty_cmd = !empty(get(config, 'command'))
+  if s:not_empty_cmd | let s:languageservers[lsp] = config | endif
+endfor
+
+if !empty(s:languageservers)
+  call coc#config('languageserver', s:languageservers)
+endif
 
 " Color changes
 hi! link CocErrorSign WarningMsg
@@ -299,6 +359,9 @@ let g:grepper.tools=["rg"]
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#363949'
 
+" Javasript
+let g:javascript_plugin_flow = 1
+
 " Markdown
 set conceallevel=2
 let g:vim_markdown_folding_disabled = 1
@@ -358,11 +421,10 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " Ultisnips
 let g:UltiSnipsExpandTrigger       = "<C-Space>"
 let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-x>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
 " WebDevIcons
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
 let g:webdevicons_enable_airline_tabline = 1
 let g:webdevicons_enable_startify = 1
-
