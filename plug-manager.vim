@@ -51,7 +51,7 @@ Plug 'vim-scripts/loremipsum'
 Plug 'Yggdroot/indentLine'
 
 " CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> InitializeCoc() } }
 
 " Ecmascript
 Plug 'heavenshell/vim-jsdoc'
@@ -194,23 +194,26 @@ let g:bullets_enabled_file_types = [
 
 " CoC
 let g:coc_node_path = '~/.nvm/versions/node/v12.16.3/bin/node'
-let g:coc_global_extensions = [
-\ 'coc-angular',
-\ 'coc-css',
-\ 'coc-emmet',
-\ 'coc-eslint',
-\ 'coc-highlight',
-\ 'coc-json',
-\ 'coc-html',
-\ 'coc-lists',
-\ 'coc-marketplace',
-\ 'coc-prettier',
-\ 'coc-snippets',
-\ 'coc-tabnine',
-\ 'coc-tslint-plugin',
-\ 'coc-tsserver',
-\ 'coc-yank'
-\ ]
+function! InitializeCoc()
+  call coc#util#install()
+  call coc#util#install_extensions([
+  \ 'coc-angular',
+  \ 'coc-css',
+  \ 'coc-emmet',
+  \ 'coc-eslint',
+  \ 'coc-highlight',
+  \ 'coc-json',
+  \ 'coc-html',
+  \ 'coc-lists',
+  \ 'coc-marketplace',
+  \ 'coc-prettier',
+  \ 'coc-snippets',
+  \ 'coc-tabnine',
+  \ 'coc-tslint-plugin',
+  \ 'coc-tsserver',
+  \ 'coc-yank'
+  \ ])
+endfunction
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
