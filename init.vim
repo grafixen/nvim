@@ -4,10 +4,6 @@ if filereadable(expand("~/.config/nvim/plug-manager.vim"))
   source ~/.config/nvim/plug-manager.vim
 endif
 
-" re-init plugins
-" call plug#begin('~/.config/nvim/plugged')
-" call plug#end()
-
 """ AESTHETICS
 syntax on
 colorscheme dracula
