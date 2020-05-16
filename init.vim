@@ -261,8 +261,8 @@ nmap <leader>9 9gt
 nmap <leader>0 10gt
 
 " terminal
-nmap <leader><leader>s <C-w>s<C-w>j:terminal<CR>
-nmap <leader><leader>vs <C-w>v<C-w>l:terminal<CR>
+nmap <leader><leader>ss <C-w>s<C-w>j:terminal<CR>
+nmap <leader><leader>sv <C-w>v<C-w>l:terminal<CR>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
