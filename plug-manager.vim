@@ -31,24 +31,24 @@ Plug 'yuttie/hydrangea-vim'
 Plug 'zaki/zazen'
 
 " Functionalities
-Plug 'airblade/vim-gitgutter'
-Plug 'alvan/vim-closetag'
-Plug 'chrisbra/Colorizer'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'junegunn/vim-journal'
+Plug 'mhinz/vim-startify'
+Plug 'tpope/vim-sensible'
+
+" Coding
+Plug 'alvan/vim-closetag'
+Plug 'chrisbra/Colorizer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-journal'
 Plug 'mhinz/vim-grepper'
-Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/loremipsum'
 Plug 'Yggdroot/indentLine'
+Plug 'vim-scripts/loremipsum'
 
 " CoC
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -60,8 +60,18 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'mattn/emmet-vim'
 
 " FZF
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+if has('macunix')
+  " Use existing Brew Install
+  Plug '/usr/local/opt/fzf'
+else
+  " Use Manual Install
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+endif
 Plug 'junegunn/fzf.vim'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
@@ -325,22 +335,16 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+" RipGrep
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+endfunction
 
-" Redefine Rg command to allow rg arguments to pass through
-" such as `-tyaml` for yaml files or `-F` for literal strings
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+command! -nargs=1 -bang RF call RipgrepFzf(<q-args>, <bang>0)
 
 " Activate FZF Statusline
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
