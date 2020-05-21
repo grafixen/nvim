@@ -391,6 +391,15 @@ let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters f
 let g:NERDCommentEmptyLines      = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
 
+" Startify
+let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_dir = 1
+let g:startify_bookmarks = [
+      \ { 'c': '~/.config/nvim/init.vim' },
+      \ { 'd': '~/.config/nvim/plug-manager.vim' },
+      \ { 'e': '~/.zshrc' }
+      \ ]
+
 " Tern
 let g:tern_request_timeout = 6000
 let g:tern#command         = ['tern']
