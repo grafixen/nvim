@@ -205,7 +205,7 @@ let g:bullets_enabled_file_types = [
 " CoC
 " Make sure NODE can be called by Coc else extensions will not be called
 " :CocInfo
-let g:coc_node_path = '~/.nvm/versions/node/v12.16.3/bin/node'
+let g:coc_node_path = substitute(system('which node'), '\n', '', '')
 let g:coc_global_extensions = [
 \ 'coc-angular',
 \ 'coc-css',
