@@ -209,7 +209,6 @@ let g:coc_node_path = substitute(system('which node'), '\n', '', '')
 let g:coc_global_extensions = [
 \ 'coc-angular',
 \ 'coc-css',
-\ 'coc-docker',
 \ 'coc-emmet',
 \ 'coc-eslint',
 \ 'coc-highlight',
@@ -395,10 +394,10 @@ let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespa
 let g:startify_change_to_vcs_root = 1
 let g:startify_change_to_dir = 1
 let g:startify_bookmarks = [
-      \ { 'c': '~/.config/nvim/init.vim' },
-      \ { 'd': '~/.config/nvim/plug-manager.vim' },
-      \ { 'e': '~/.zshrc' }
-      \ ]
+\ { 'c': '~/.config/nvim/init.vim' },
+\ { 'd': '~/.config/nvim/plug-manager.vim' },
+\ { 'e': '~/.zshrc' }
+\ ]
 
 " Tern
 let g:tern_request_timeout = 6000
