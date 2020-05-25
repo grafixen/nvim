@@ -11,14 +11,6 @@ highlight Comment gui=bold
 highlight Normal gui=none
 highlight NonText guibg=none
 
-" opaque background (comment out to use terminal's profile)
-set termguicolors
-
-" transparent background (for i3 and compton)
-highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr guibg=NONE ctermbg=NONE
-
-
 """ OTHER CONFIGURATIONS
 set hidden                " CoC: if hidden is not set, TextEdit might fail.
 set cursorline            " highlight current line
@@ -49,19 +41,16 @@ set splitbelow            " Horizontal splits will automatically be below
 set splitright            " Vertical splits will automatically be to the right
 set fillchars+=vert:\
 
+" additional config
+set cmdheight=2           " better display for messages
+set updatetime=200        " bad experience if default 4000
+set shortmess+=c          " do not give |ins-completion-menu| messages
+set signcolumn=yes        " always show signcolumns
+
 " spell check
 set spelllang=en,fr
 autocmd FileType markdown,gitcommit,text setlocal spell spelllang=en_us
 autocmd FileType text setlocal spell spelllang=en_us,fr
-
-" cocvim optimization
-set cmdheight=2       " better display for messages
-set updatetime=200    " bad experience if default 4000
-set shortmess+=c      " do not give |ins-completion-menu| messages
-set signcolumn=yes    " always show signcolumns
-
-" enable highlight
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " spaces
 set tabstop=2     " tab width
@@ -118,14 +107,6 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
-" persistent undo
-" keep undo history across sessions, by storing in file.
-" if has('persistent_undo') && isdirectory(expand('~').'/.vim/backups')
-"   silent !mkdir ~/.vim/backups > /dev/null 2>&1
-"   set undodir=~/.vim/backups
-"   set undofile
-" endif
-
 
 """ FILETYPES
 " filetype: auto completion: ctrl+x ctrl+o to activate
@@ -152,75 +133,12 @@ function! LargeFile()
   setlocal noswapfile
 endfunction
 
-" show list of all filetypes
-function! SortUnique(list, ...)
-  let dictionary = {}
-  for i in a:list
-    let dictionary[string(i)] = i
-  endfor
-  if ( exists( 'a:1' ) )
-    let result = sort( values( dictionary ), a:1 )
-  else
-    let result = sort( values( dictionary ) )
-  endif
-  return result
-endfunction
-command! Filetypes execute "echo
-      \ join(
-        \ SortUnique(
-          \ map(
-            \ split(
-              \ globpath(&rtp, 'ftplugin/*.vim') . globpath(&rtp, 'syntax/*.vim'),
-              \ '\n'),
-            \ \"fnamemodify(v:val, ':t:r')\")),
-        \'\n')"
-
-
-" html, xml, jinja, javascript, typescript
-autocmd filetype html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType js setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType ts setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
-autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
-autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
-
-" markdown and journal
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
-" xml
-nnoremap fx :%!xmllint --format --encode UTF-8 -<CR>
-
-" json
-nnoremap fj :%! cat % \| ruby -e "require 'json'; puts JSON.pretty_generate(JSON.parse(STDIN.read))"<CR>
-
-" format and sort keys in json
-nnoremap fsj :%! cat % \| ruby -e "
-  \ require 'json';
-  \ hash = JSON.parse(STDIN.read);
-  \ def deep_sort(hash);
-  \   hash.sort.map { \|(k, v)\|;
-  \     case v;
-  \     when Hash;
-  \       [k, deep_sort(v)];
-  \     when Array;
-  \       [k, v.sort_by(&:to_s)];
-  \     else;
-  \       [k, v];
-  \     end;
-  \   }.to_h;
-  \ end;
-  \ puts JSON.pretty_generate(deep_sort(hash))"<CR><CR>
-
 
 """ CUSTOM MAPPINGS
 let mapleader=","
-nmap <leader>w :Vista!!<CR>
-nmap <leader>wf :Vista finder<CR>
-nmap <leader>ww :Vista coc<CR>
+" nmap <leader>w :Vista!!<CR>
+" nmap <leader>wf :Vista finder<CR>
+" nmap <leader>ww :Vista coc<CR>
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
 nmap <leader>im :TsuImport<CR>
@@ -268,8 +186,8 @@ nnoremap <leader><leader>c :bp\|bd #<CR>
 
 " fzf
 nnoremap <silent> <leader><leader>b :Buffers<CR>
-nnoremap <silent> <leader><leader>f :GFiles<CR>
-nnoremap <silent> <leader><leader>F :Locate /<CR>
+nnoremap <silent> <leader><leader>f :GFiles .<CR>
+nnoremap <silent> <leader><leader>F :Files<CR>
 nnoremap <silent> <leader><leader>l :Lines<CR>
 nnoremap <silent> <leader><leader>m :Maps<CR>
 
@@ -312,11 +230,6 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'source': 'rg -n ^ --color always',
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-" markdown preview mapping
-nmap <leader><leader>pp <Plug>MarkdownPreview
-nmap <leader><leader>ps <Plug>MarkdownPreviewStop
-nmap <leader><leader>pt <Plug>MarkdownPreviewToggle
 
 " find & replace: in current file
 "   Works by
@@ -417,21 +330,3 @@ function! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-" Save current file every time we leave insert mode or leave vim
-augroup autoSaveAndRead
-  autocmd!
-  " autocmd InsertLeave,FocusLost * call <SID>autosave()
-  autocmd WinLeave,FocusLost * call <SID>autosave()
-  autocmd CursorHold * silent! checktime
-augroup END
-
-function! <SID>autosave()
-  if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
-    update
-    call ale#Queue(0)   " Trigger linting immediately
-  endif
-endfunction
-
-" <escape> in normal mode also saves
-nnoremap <esc> :call <SID>autosave()<CR>

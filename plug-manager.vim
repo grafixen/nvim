@@ -1,40 +1,17 @@
-""" PLUGINS
-" Brief help
-" :PlugInstall [name ...] [#thread]   - installs plugins
-" :PlugUpdate [name ...] [#thread]    - Install or update plugins
-" :PlugClean[!]                       - Remove unlisted plugins (bang version will clean without prompt)
-" :PlugUpgrade                        - Upgrade vim-plug itself
-" :PlugStatus                         - Check the status of plugins
-" :PlugDiff                           - Examine changes from the previous update and the pending changes
-" :PlugSnapshot[!] [output path]      - Generate script for restoring the current snapshot of the plugins
-
 call plug#begin('~/.config/nvim/plugged')
 
 " Aesthetics - Main
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 
 " Aethetics - Additional
-Plug 'arcticicestudio/nord-vim'
-Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nightsense/forgotten'
-Plug 'nightsense/nemo'
-Plug 'joshdick/onedark.vim'
-Plug 'junegunn/seoul256.vim'
-Plug 'junegunn/vim-journal'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'rhysd/vim-color-spring-night'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'whatyouhide/vim-gotham'
-Plug 'yuttie/hydrangea-vim'
-Plug 'zaki/zazen'
 
 " Functionalities
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'heavenshell/vim-pydocstring'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'junegunn/vim-journal'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-sensible'
 
@@ -48,13 +25,9 @@ Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
-Plug 'vim-scripts/loremipsum'
 
 " CoC
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
-" Ecmascript
-Plug 'heavenshell/vim-jsdoc'
 
 " Emmet
 Plug 'mattn/emmet-vim'
@@ -73,19 +46,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim', { 'do': 'yarn install && yarn global add tern' }
-
 " Linting
-Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
-
-" Markdown
-Plug 'dkarter/bullets.vim'
-Plug 'godlygeek/tabular'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'plasticboy/vim-markdown'
 
 " Multiple Cursors
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
@@ -100,49 +62,13 @@ Plug 'SirVer/ultisnips'
 " Table Mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" Tags
-Plug 'liuchengxu/vista.vim'
-
 " Typescript
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/tsuquyomi', { 'do': 'yarn global add typescript' }
-Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 call plug#end()
 
 
 """ PLUGIN CONFIGURATION
-" Ale
-if !hlexists('ALEVirtualTextError')
-  highlight link ALEVirtualTextError ErrorMsg
-  highlight link ALEVirtualTextWarning SpecialChar
-endif
-
-let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '  ---> '
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_delay = 100
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_echo_msg_format = '[%linter% %code%] %s'
-
-let g:ale_fix_on_save = 1
-let g:ale_open_list = 0             " Don't open the loclist when reading a file (if there are errors)
-let g:ale_linters_explicit = 1      " Only run linters named in ale_linters settings.
-
-let b:ale_linters = ['flow-language-server'] " Enables only Flow for JavaScript (https://www.flow.org/)
-let g:ale_linters = {
-\ 'javascript': ['eslint', 'flow-language-server'],
-\ 'typescript': ['eslint', 'tsserver', 'typecheck'],
-\}
-let g:ale_fixers = {
-\ 'css': ['prettier'],
-\ 'javascript': ['prettier', 'eslint'],
-\ 'typescript': ['prettier', 'eslint'],
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-\}
-
 " Airline
 let g:airline_theme = 'murmur'
 let g:airline_powerline_fonts = 1
@@ -194,34 +120,17 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline_section_error   = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
-" Bullets
-let g:bullets_enabled_file_types = [
-\ 'markdown',
-\ 'text',
-\ 'gitcommit',
-\ 'scratch'
-\ ]
-
 " CoC
 " Make sure NODE can be called by Coc else extensions will not be called
 " :CocInfo
 let g:coc_node_path = substitute(system('which node'), '\n', '', '')
 let g:coc_global_extensions = [
-\ 'coc-angular',
-\ 'coc-css',
-\ 'coc-emmet',
-\ 'coc-eslint',
 \ 'coc-highlight',
-\ 'coc-json',
-\ 'coc-html',
-\ 'coc-lists',
-\ 'coc-marketplace',
-\ 'coc-prettier',
-\ 'coc-snippets',
 \ 'coc-tabnine',
-\ 'coc-tslint-plugin',
-\ 'coc-tsserver',
-\ 'coc-yank'
+\ 'coc-eslint',
+\ 'coc-prettier',
+\ 'coc-tslint',
+\ 'coc-tsserver'
 \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -360,28 +269,6 @@ let g:grepper.tools=["rg"]
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#363949'
 
-" Javasript
-let g:javascript_plugin_flow = 1
-
-" Markdown
-set conceallevel=2
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal = 0
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 0
-let g:mkdp_refresh_slow = 1
-let g:mkdp_markdown_css = ''
-let g:mkdp_preview_options = {
-\ 'mkit': {},
-\ 'katex': {},
-\ 'uml': {},
-\ 'maid': {},
-\ 'disable_sync_scroll': 0,
-\ 'sync_scroll_type': 'middle',
-\ 'hide_yaml_meta': 1,
-\ 'sequence_diagrams': {}
-\ }
-
 " NERDCommenter
 " !!! See link for more config options: https://github.com/scrooloose/nerdcommenter !!!
 let g:NERDSpaceDelims            = 1      " Add spaces after comment delimiters by default
@@ -399,34 +286,9 @@ let g:startify_bookmarks = [
 \ { 'e': '~/.zshrc' }
 \ ]
 
-" Tern
-let g:tern_request_timeout = 6000
-let g:tern#command         = ['tern']
-let g:tern#arguments       = ['--persistent']
-
 " Tsuquyomi
-let g:tsuquyomi_javascript_support   = 1
-let g:tsuquyomi_auto_open            = 1
-let g:tsuquyomi_disable_quickfix     = 1
 let g:tsuquyomi_shortest_import_path = 1
 let g:tsuquyomi_single_quote_import  = 1
-
-" Vista
-set statusline+=%{NearestMethodOrFunction()}
-let g:vista_default_executive = 'ctags'
-let g:vista_fzf_preview = ['right:50%']
-let g:vista#renderer#enable_icon = 1
-let g:vista_echo_cursor_strategy = 'floating_win'
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-
-" Show the nearest method/function in the statusline
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger       = "<C-Space>"
