@@ -1,11 +1,26 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript"],
+
+  // eslint
   "eslint.packageManager": "yarn",
+
+  // tsserver
   "tslint.jsEnable": true,
   "tslint.packageManager": "yarn",
   "typescript.preferences.importModuleSpecifier": "relative",
+
+  // snippets
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "~/.config/nvim/plugged/vim-snippets/UltiSnips"
-  ]
+  ],
+
+  // lsp
+  "languageserver": {
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["javascript", "typescript"]
+    },
+  }
 }
