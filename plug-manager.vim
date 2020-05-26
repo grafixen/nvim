@@ -21,7 +21,6 @@ Plug 'chrisbra/Colorizer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'mhinz/vim-grepper'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
@@ -62,8 +61,9 @@ Plug 'SirVer/ultisnips'
 " Table Mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" Typescript
-Plug 'Quramy/tsuquyomi'
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'kristijanhusak/vim-js-file-import', { 'do': 'yarn install' }
 
 call plug#end()
 
@@ -261,9 +261,13 @@ let g:gitgutter_sign_removed            = 'x'
 let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed   = '~'
 
-" Grep
-let g:grepper={}
-let g:grepper.tools=["rg"]
+" GutenTags
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
+
+command! -nargs=0 GutentagsClearCache
+  \ call system('rm ' . g:gutentags_cache_dir . '/*')
 
 " IndentLine
 let g:indentLine_char = '▏'
@@ -285,10 +289,6 @@ let g:startify_bookmarks = [
 \ { 'd': '~/.config/nvim/plug-manager.vim' },
 \ { 'e': '~/.zshrc' }
 \ ]
-
-" Tsuquyomi
-let g:tsuquyomi_shortest_import_path = 1
-let g:tsuquyomi_single_quote_import  = 1
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger       = "<C-Space>"

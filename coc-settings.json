@@ -3,6 +3,7 @@
   "eslint.packageManager": "yarn",
   "tslint.jsEnable": true,
   "tslint.packageManager": "yarn",
+  "typescript.preferences.importModuleSpecifier": "relative",
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "~/.config/nvim/plugged/vim-snippets/UltiSnips"

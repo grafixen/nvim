@@ -4,12 +4,17 @@ if filereadable(expand("~/.config/nvim/plug-manager.vim"))
   source ~/.config/nvim/plug-manager.vim
 endif
 
+""" Set Terminal Color
+set t_Co=256
+set background=dark
+
 """ AESTHETICS
 syntax on
 colorscheme dracula
 highlight Comment gui=bold
 highlight Normal gui=none
 highlight NonText guibg=none
+
 
 """ OTHER CONFIGURATIONS
 set hidden                " CoC: if hidden is not set, TextEdit might fail.
@@ -136,17 +141,13 @@ endfunction
 
 """ CUSTOM MAPPINGS
 let mapleader=","
-" nmap <leader>w :Vista!!<CR>
-" nmap <leader>wf :Vista finder<CR>
-" nmap <leader>ww :Vista coc<CR>
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
-nmap <leader>im :TsuImport<CR>
+nmap <leader>im <Plug>(JsFileImport)
 nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
 nmap <leader>s ysiw
-nmap <leader>d <Plug>(pydocstring)
 nmap <leader>h :RainbowParentheses!!<CR>
 nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
@@ -201,10 +202,6 @@ nnoremap <Leader>g :Rg <C-r><C-w><CR>
 
 nnoremap <leader>rg :Rg<Space>
 vnoremap <leader>rg "gy:Rg<Space><C-r>g<CR>
-
-" lazy loading
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
 
 " find & replace: in all files
 "   after searching or text, press this mapping to do a project wide find and
