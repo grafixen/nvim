@@ -247,12 +247,6 @@ let g:fzf_colors = {
 \ 'header':  ['fg', 'Comment'] }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-nnoremap <silent> <leader><leader>b :Buffers<CR>
-nnoremap <silent> <leader><leader>f :GFiles<CR>
-nnoremap <silent> <leader><leader>F :Files<CR>
-nnoremap <silent> <leader><leader>l :Lines<CR>
-nnoremap <silent> <leader><leader>m :Maps<CR>
-
 " Custom statusline
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -286,9 +280,9 @@ let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed   = '~'
 
 " GutenTags
-" let g:gutentags_add_default_project_roots = 0
-" let g:gutentags_project_root = ['package.json', '.git']
-" let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
 
 command! -nargs=0 GutentagsClearCache
   \ call system('rm ' . g:gutentags_cache_dir . '/*')
@@ -304,12 +298,6 @@ let g:NERDCompactSexyComs        = 1      " Use compact syntax for prettified mu
 let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDCommentEmptyLines      = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
-
-" Ranger
-nmap <leader>ff :RangerEdit<CR>
-nmap <leader>fv :RangerVSplit<CR>
-nmap <leader>fs :RangerSplit<CR>
-nmap <leader>ft :RangerTab<CR>
 
 " Startify
 let g:startify_change_to_vcs_root = 1

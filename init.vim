@@ -152,6 +152,19 @@ nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
 nmap <silent> <leader><leader> :noh<CR>
 
+" fzf
+nnoremap <silent> <leader><leader>b :Buffers<CR>
+nnoremap <silent> <leader><leader>f :GFiles<CR>
+nnoremap <silent> <leader><leader>F :Files<CR>
+nnoremap <silent> <leader><leader>l :Lines<CR>
+nnoremap <silent> <leader><leader>m :Maps<CR>
+
+" ranger
+nmap <leader>ff :RangerEdit<CR>
+nmap <leader>fv :RangerVSplit<CR>
+nmap <leader>fs :RangerSplit<CR>
+nmap <leader>ft :RangerTab<CR>
+
 " tab navigation
 nnoremap <Tab>    :tabnext<CR>
 nnoremap <S-Tab>  :tabprevious<CR>
