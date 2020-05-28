@@ -143,7 +143,6 @@ endfunction
 let mapleader=","
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
-nmap <leader>im <Plug>(JsFileImport)
 nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
@@ -152,12 +151,6 @@ nmap <leader>h :RainbowParentheses!!<CR>
 nmap <leader>j :set filetype=journal<CR>
 nmap <leader>k :ColorToggle<CR>
 nmap <silent> <leader><leader> :noh<CR>
-
-" ranger
-nmap <leader>ff :RangerEdit<CR>
-nmap <leader>fv :RangerVSplit<CR>
-nmap <leader>fs :RangerSplit<CR>
-nmap <leader>ft :RangerTab<CR>
 
 " tab navigation
 nnoremap <Tab>    :tabnext<CR>
@@ -185,23 +178,9 @@ autocmd BufLeave term://* stopinsert
 nnoremap <leader><leader>C :bufdo bwipeout<CR>
 nnoremap <leader><leader>c :bp\|bd #<CR>
 
-" fzf
-nnoremap <silent> <leader><leader>b :Buffers<CR>
-nnoremap <silent> <leader><leader>f :GFiles .<CR>
-nnoremap <silent> <leader><leader>F :Files<CR>
-nnoremap <silent> <leader><leader>l :Lines<CR>
-nnoremap <silent> <leader><leader>m :Maps<CR>
-
 " search for visually selected textab
 "   https://vim.fandom.com/wiki/Search_for_visually_selected_text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-" grep selection with rg
-xnoremap <leader>g y :Rg <CR>
-nnoremap <Leader>g :Rg <C-r><C-w><CR>
-
-nnoremap <leader>rg :Rg<Space>
-vnoremap <leader>rg "gy:Rg<Space><C-r>g<CR>
 
 " find & replace: in all files
 "   after searching or text, press this mapping to do a project wide find and

@@ -63,7 +63,6 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kristijanhusak/vim-js-file-import', { 'do': 'yarn install' }
 
 call plug#end()
 
@@ -126,15 +125,16 @@ let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_
 let g:coc_node_path = substitute(system('which node'), '\n', '', '')
 let g:coc_global_extensions = [
 \ 'coc-highlight',
-\ 'coc-tabnine',
 \ 'coc-eslint',
 \ 'coc-prettier',
-\ 'coc-tslint',
+\ 'coc-snippets',
+\ 'coc-tabnine',
 \ 'coc-tsserver'
 \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
@@ -146,16 +146,29 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " Navigate snippet placeholders using tab
+imap <C-l> <Plug>(coc-snippets-expand)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gf <Plug>(coc-fix-current)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -234,6 +247,12 @@ let g:fzf_colors = {
 \ 'header':  ['fg', 'Comment'] }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+nnoremap <silent> <leader><leader>b :Buffers<CR>
+nnoremap <silent> <leader><leader>f :GFiles<CR>
+nnoremap <silent> <leader><leader>F :Files<CR>
+nnoremap <silent> <leader><leader>l :Lines<CR>
+nnoremap <silent> <leader><leader>m :Maps<CR>
+
 " Custom statusline
 function! s:fzf_statusline()
   " Override statusline as you like
@@ -243,14 +262,19 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
+" Activate FZF Statusline
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 " RipGrep
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
-" Activate FZF Statusline
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+xnoremap <leader>g y :Rg <CR>
+nnoremap <Leader>g :Rg <C-r><C-w><CR>
+nnoremap <leader>G :Rg<Space>
+vnoremap <leader>G "gy:Rg<Space><C-r>g<CR>
 
 " Git Gutter
 let g:gitgutter_enabled                 = 1
@@ -262,9 +286,9 @@ let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed   = '~'
 
 " GutenTags
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git']
-let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root = ['package.json', '.git']
+" let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
 
 command! -nargs=0 GutentagsClearCache
   \ call system('rm ' . g:gutentags_cache_dir . '/*')
@@ -281,6 +305,12 @@ let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters f
 let g:NERDCommentEmptyLines      = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
 
+" Ranger
+nmap <leader>ff :RangerEdit<CR>
+nmap <leader>fv :RangerVSplit<CR>
+nmap <leader>fs :RangerSplit<CR>
+nmap <leader>ft :RangerTab<CR>
+
 " Startify
 let g:startify_change_to_vcs_root = 1
 let g:startify_change_to_dir = 1
@@ -291,7 +321,8 @@ let g:startify_bookmarks = [
 \ ]
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger       = "<C-Space>"
+let g:UltiSnipsExpandTrigger       = "<c-x><c-o>"
+let g:UltiSnipsListSnippets        = "<c-x><c-l>"
 let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
