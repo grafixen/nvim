@@ -12,6 +12,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Functionalities
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'matze/vim-move'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-sensible'
 
@@ -247,7 +248,7 @@ let g:fzf_colors = {
 \ 'header':  ['fg', 'Comment'] }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" Custom statusline
+""" Custom statusline
 function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
@@ -256,19 +257,14 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
-" Activate FZF Statusline
+""" Activate FZF Statusline
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-" RipGrep
+""" RipGrep
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
-
-xnoremap <leader>g y :Rg <CR>
-nnoremap <Leader>g :Rg <C-r><C-w><CR>
-nnoremap <leader>G :Rg<Space>
-vnoremap <leader>G "gy:Rg<Space><C-r>g<CR>
 
 " Git Gutter
 let g:gitgutter_enabled                 = 1
@@ -290,6 +286,9 @@ command! -nargs=0 GutentagsClearCache
 " IndentLine
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#363949'
+
+" Move
+let g:move_key_modifier = 'C'
 
 " NERDCommenter
 " !!! See link for more config options: https://github.com/scrooloose/nerdcommenter !!!

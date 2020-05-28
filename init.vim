@@ -12,7 +12,7 @@ set background=dark
 syntax on
 colorscheme dracula
 highlight Comment gui=bold
-highlight Normal gui=none
+highlight Normal  gui=none
 highlight NonText guibg=none
 
 
@@ -195,6 +195,12 @@ nnoremap <leader><leader>c :bp\|bd #<CR>
 "   https://vim.fandom.com/wiki/Search_for_visually_selected_text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
+" ripgrep
+xnoremap <leader>g y :Rg <CR>
+nnoremap <Leader>g :Rg <C-r><C-w><CR>
+nnoremap <leader>G :Rg<Space>
+vnoremap <leader>G "gy:Rg<Space><C-r>g<CR>
+
 " find & replace: in all files
 "   after searching or text, press this mapping to do a project wide find and
 "   replace. This one applies to all maches accross all files instead of just
@@ -212,14 +218,6 @@ xmap <leader><leader>r
   \ :cfdo %s/<C-r>s//g \| update
   \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
-" completion helper
-"   global line completion (not just open buffers. ripgrep required.)
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-  \ 'prefix': '^.*$',
-  \ 'source': 'rg -n ^ --color always',
-  \ 'options': '--ansi --delimiter : --nth 3..',
-  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
 " find & replace: in current file
 "   Works by
 "   1. Searching for word/pattern (to be replace)
@@ -228,23 +226,6 @@ nnoremap <leader>r :%s///g<Left><Left>
 
 " toggle line numbers
 nnoremap <silent> <C-m><C-m> :set invrelativenumber<CR>
-
-" move line up / down with Alt + j / k
-if has('macunix')
-  nnoremap ∆ :m .+1<CR>==
-  nnoremap ˚ :m .-2<CR>==
-  inoremap ∆ <Esc>:m .+1<CR>==gi
-  inoremap ˚ <Esc>:m .-2<CR>==gi
-  vnoremap ∆ :m '>+1<CR>gv=gv
-  vnoremap ˚ :m '<-2<CR>gv=gv
-else
-  nnoremap <A-j> :m .+1<CR>==
-  nnoremap <A-k> :m .-2<CR>==
-  inoremap <A-j> <Esc>:m .+1<CR>==gi
-  inoremap <A-k> <Esc>:m .-2<CR>==gi
-  vnoremap <A-j> :m '>+1<CR>gv=gv
-  vnoremap <A-k> :m '<-2<CR>gv=gv
-endif
 
 " window resize (simply)
 nnoremap <S-Left> :vertical resize -4<CR>
