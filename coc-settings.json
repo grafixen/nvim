@@ -18,10 +18,4 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
   "typescript.preferences.importModuleSpecifier": "relative",
-
-  // snippets
-  "snippets.ultisnips.directories": [
-    "UltiSnips",
-    "~/.config/nvim/plugged/vim-snippets/UltiSnips"
-  ],
 }

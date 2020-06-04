@@ -4,9 +4,11 @@ if filereadable(expand("~/.config/nvim/plug-manager.vim"))
   source ~/.config/nvim/plug-manager.vim
 endif
 
+
 """ Set Terminal Color
 set t_Co=256
 set background=dark
+
 
 """ AESTHETICS
 syntax on
@@ -64,10 +66,6 @@ set softtabstop=2 " simulated tab width
 set expandtab     " spaces on tab press
 set smartindent   " indent automatically
 set shiftround    " uses shiftwidth when >, <
-
-" show whitespaces
-set list listchars=tab:»·,trail:·
-" set list listchars=trail:»,tab:»-
 
 " removes the delay when hitting esc in insert mode
 set ttimeout
@@ -232,9 +230,6 @@ nnoremap <S-Left> :vertical resize -4<CR>
 nnoremap <S-Right> :vertical resize +4<CR>
 nnoremap <S-Up> :resize -4<CR>
 nnoremap <S-Down> :resize +4<CR>
-
-" escape
-inoremap jk <ESC>
 
 
 """ CUSTOM FUNCTIONS

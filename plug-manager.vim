@@ -128,7 +128,6 @@ let g:coc_global_extensions = [
 \ 'coc-highlight',
 \ 'coc-eslint',
 \ 'coc-prettier',
-\ 'coc-snippets',
 \ 'coc-tabnine',
 \ 'coc-tsserver'
 \ ]
@@ -158,13 +157,6 @@ if exists('*complete_info')
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
-
-" Navigate snippet placeholders using tab
-imap <C-l> <Plug>(coc-snippets-expand)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -308,8 +300,8 @@ let g:startify_bookmarks = [
 \ ]
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger       = "<c-x><c-o>"
-let g:UltiSnipsListSnippets        = "<c-x><c-l>"
+let g:UltiSnipsExpandTrigger       = "<c-j>"
+let g:UltiSnipsListSnippets        = "<c-l>"
 let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
