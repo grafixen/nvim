@@ -6,6 +6,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 
 " Aethetics - Additional
+Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vim-airline/vim-airline-themes'
 
@@ -53,7 +54,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 
 " Ranger File Manager
-Plug 'rafaqz/ranger.vim'
+Plug 'kevinhwang91/rnvimr'
 
 " Snippets
 Plug 'honza/vim-snippets'
@@ -279,9 +280,6 @@ command! -nargs=0 GutentagsClearCache
 let g:indentLine_char = '▏'
 let g:indentLine_color_gui = '#363949'
 
-" Move
-let g:move_key_modifier = 'C'
-
 " NERDCommenter
 " !!! See link for more config options: https://github.com/scrooloose/nerdcommenter !!!
 let g:NERDSpaceDelims            = 1      " Add spaces after comment delimiters by default
@@ -289,6 +287,26 @@ let g:NERDCompactSexyComs        = 1      " Use compact syntax for prettified mu
 let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDCommentEmptyLines      = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
+
+" RnvimR
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_draw_border = 1
+let g:rnvimr_pick_enable = 1
+let g:rnvimr_bw_enable = 1
+
+let g:rnvimr_action = {
+\ '<C-t>': 'NvimEdit tabedit',
+\ '<C-s>': 'NvimEdit split',
+\ '<C-v>': 'NvimEdit vsplit',
+\ 'gw': 'JumpNvimCwd',
+\ 'yw': 'EmitRangerCwd'
+\ }
+
+let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"
+            \ --cmd="set draw_borders both"'
+let g:rnvimr_presets = [
+            \ {'width': 0.800, 'height': 0.800}]
+highlight link RnvimrNormal CursorLine
 
 " Startify
 let g:startify_change_to_vcs_root = 1

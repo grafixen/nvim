@@ -12,7 +12,7 @@ set background=dark
 
 """ AESTHETICS
 syntax on
-colorscheme dracula
+colorscheme gruvbox
 highlight Comment gui=bold
 highlight Normal  gui=none
 highlight NonText guibg=none
@@ -158,12 +158,13 @@ nnoremap <silent> <leader><leader>l :Lines<CR>
 nnoremap <silent> <leader><leader>m :Maps<CR>
 
 " ranger
-nmap <leader>ff :RangerEdit<CR>
-nmap <leader>fv :RangerVSplit<CR>
-nmap <leader>fs :RangerSplit<CR>
-nmap <leader>ft :RangerTab<CR>
+" nmap <leader>ff :RangerEdit<CR>
+" nmap <leader>fv :RangerVSplit<CR>
+" nmap <leader>fs :RangerSplit<CR>
+" nmap <leader>ft :RangerTab<CR>
+nmap <leader>ff :RnvimrToggle<CR>
 
-" tab navigation
+" tab navigatoin
 nnoremap <Tab>    :tabnext<CR>
 nnoremap <S-Tab>  :tabprevious<CR>
 nnoremap <C-t>    :tabnew<CR>
@@ -230,6 +231,10 @@ nnoremap <S-Left> :vertical resize -4<CR>
 nnoremap <S-Right> :vertical resize +4<CR>
 nnoremap <S-Up> :resize -4<CR>
 nnoremap <S-Down> :resize +4<CR>
+
+" escape
+inoremap jk <ESC>
+inoremap kj <ESC>
 
 
 """ CUSTOM FUNCTIONS
