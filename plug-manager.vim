@@ -52,7 +52,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 
 " Ranger File Manager
-Plug 'kevinhwang91/rnvimr'
+Plug 'kevinhwang91/rnvimr' { 'do': 'make sync' }
 
 " Snippets
 Plug 'honza/vim-snippets'
