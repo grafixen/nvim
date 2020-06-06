@@ -144,8 +144,15 @@ nmap <leader>a gaip*
 nmap <leader>f :RnvimrToggle<CR>
 nmap <leader>s ysiw
 nmap <leader>t :call TrimWhitespace()<CR>
+
+" themes
 nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
+
+" vista tags
+nmap <leader>w :Vista coc<CR>
+
+" no highlight
 nmap <silent> <leader><leader> :noh<CR>
 
 " fzf

@@ -52,7 +52,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 
 " Ranger File Manager
-Plug 'kevinhwang91/rnvimr' { 'do': 'make sync' }
+Plug 'kevinhwang91/rnvimr', { 'do': 'make sync' }
 
 " Snippets
 Plug 'honza/vim-snippets'
@@ -61,8 +61,8 @@ Plug 'SirVer/ultisnips'
 " Table Mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
+" Vista
+Plug 'liuchengxu/vista.vim'
 
 call plug#end()
 
@@ -265,14 +265,6 @@ let g:gitgutter_sign_modified           = '%'
 let g:gitgutter_sign_removed            = 'x'
 let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_modified_removed   = '~'
-
-" GutenTags
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git']
-let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
-
-command! -nargs=0 GutentagsClearCache
-  \ call system('rm ' . g:gutentags_cache_dir . '/*')
 
 " IndentLine
 let g:indentLine_char = '▏'
