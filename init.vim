@@ -139,30 +139,21 @@ endfunction
 
 """ CUSTOM MAPPINGS
 let mapleader=","
-nmap <leader>ee :Colors<CR>
-nmap <leader>ea :AirlineTheme
-nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
+nmap <leader>f :RnvimrToggle<CR>
 nmap <leader>s ysiw
-nmap <leader>h :RainbowParentheses!!<CR>
-nmap <leader>j :set filetype=journal<CR>
-nmap <leader>k :ColorToggle<CR>
+nmap <leader>t :call TrimWhitespace()<CR>
+nmap <leader>ee :Colors<CR>
+nmap <leader>ea :AirlineTheme
 nmap <silent> <leader><leader> :noh<CR>
 
 " fzf
-nnoremap <silent> <leader><leader>b :Buffers<CR>
-nnoremap <silent> <leader><leader>f :GFiles<CR>
-nnoremap <silent> <leader><leader>F :Files<CR>
-nnoremap <silent> <leader><leader>l :Lines<CR>
-nnoremap <silent> <leader><leader>m :Maps<CR>
+nnoremap <silent> <M-b> :Buffers<CR>
+nnoremap <silent> <M-g> :GFiles<CR>
+nnoremap <silent> <M-f> :Files<CR>
 
 " ranger
-" nmap <leader>ff :RangerEdit<CR>
-" nmap <leader>fv :RangerVSplit<CR>
-" nmap <leader>fs :RangerSplit<CR>
-" nmap <leader>ft :RangerTab<CR>
-nmap <leader>ff :RnvimrToggle<CR>
 
 " tab navigatoin
 nnoremap <Tab>    :tabnext<CR>

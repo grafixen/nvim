@@ -19,9 +19,7 @@ Plug 'tpope/vim-sensible'
 
 " Coding
 Plug 'alvan/vim-closetag'
-Plug 'chrisbra/Colorizer'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
