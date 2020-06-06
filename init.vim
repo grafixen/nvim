@@ -150,7 +150,7 @@ nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
 
 " vista tags
-nmap <leader>w :Vista coc<CR>
+nmap <leader>w :Vista<CR>
 
 " no highlight
 nmap <silent> <leader><leader> :noh<CR>
@@ -159,8 +159,6 @@ nmap <silent> <leader><leader> :noh<CR>
 nnoremap <silent> <M-b> :Buffers<CR>
 nnoremap <silent> <M-g> :GFiles<CR>
 nnoremap <silent> <M-f> :Files<CR>
-
-" ranger
 
 " tab navigatoin
 nnoremap <Tab>    :tabnext<CR>
