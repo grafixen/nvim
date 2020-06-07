@@ -160,6 +160,12 @@ nnoremap <silent> <M-b> :Buffers<CR>
 nnoremap <silent> <M-g> :GFiles<CR>
 nnoremap <silent> <M-f> :Files<CR>
 
+" nerdcommenter
+nmap <M-/> <Plug>NERDCommenterToggle
+vmap <M-/> <Plug>NERDCommenterToggle<CR>gv
+nmap <M-?> <Plug>NERDCommenterSexy
+vmap <M-?> <Plug>NERDCommenterSexy<CR>gv
+
 " tab navigatoin
 nnoremap <Tab>    :tabnext<CR>
 nnoremap <S-Tab>  :tabprevious<CR>
