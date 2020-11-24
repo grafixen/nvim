@@ -6,15 +6,24 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 
 " Aethetics - Additional
-Plug 'morhetz/gruvbox'
+Plug 'crusoexia/vim-monokai'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'lifepillar/vim-solarized8'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-one'
 Plug 'vim-airline/vim-airline-themes'
 
 " Functionalities
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'mhinz/vim-grepper'
 Plug 'matze/vim-move'
 Plug 'mhinz/vim-startify'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 
 " Coding
@@ -50,6 +59,13 @@ Plug 'sheerun/vim-polyglot'
 
 " Multiple Cursors
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
+
+" Python
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'Vimjas/vim-python-pep8-indent'
+
+" Quickscope
+Plug 'unblevable/quick-scope'
 
 " Ranger File Manager
 Plug 'kevinhwang91/rnvimr', { 'do': 'make sync' }
@@ -119,16 +135,27 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline_section_error   = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
+" Closetag
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
 " CoC
 " Make sure NODE can be called by Coc else extensions will not be called
 " :CocInfo
 let g:coc_node_path = substitute(system('which node'), '\n', '', '')
 let g:coc_global_extensions = [
+\ 'coc-angular',
 \ 'coc-highlight',
+\ 'coc-html',
 \ 'coc-eslint',
+\ 'coc-pairs',
 \ 'coc-prettier',
+\ 'coc-python',
 \ 'coc-tabnine',
-\ 'coc-tsserver'
+\ 'coc-tsserver',
+\ 'coc-ultisnips'
 \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -257,6 +284,16 @@ command! -bang -nargs=* Rg
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+
 " Git Gutter
 let g:gitgutter_enabled                 = 1
 let g:gitgutter_max_signs               = 500 " default value
@@ -297,6 +334,9 @@ let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"
 let g:rnvimr_presets = [
             \ {'width': 0.800, 'height': 0.800}]
 highlight link RnvimrNormal CursorLine
+
+" Quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Startify
 let g:startify_change_to_vcs_root = 1

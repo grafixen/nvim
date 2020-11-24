@@ -12,7 +12,7 @@ set background=dark
 
 """ AESTHETICS
 syntax on
-colorscheme gruvbox
+colorscheme dracula
 highlight Comment gui=bold
 highlight Normal  gui=none
 highlight NonText guibg=none
@@ -74,7 +74,6 @@ set ttimeoutlen=1
 " line numbers
 set number                          " show
 set numberwidth=5                   " line numbers width
-highlight LineNr guifg=#109fd2      " line number color: overrides dracula theme
 
 " highlight trailing whitespaces
 hi ExtraWhitespace ctermbg=172 guifg=#d78700
@@ -150,26 +149,54 @@ nmap <leader>ee :Colors<CR>
 nmap <leader>ea :AirlineTheme
 
 " vista tags
-nmap <leader>w :Vista<CR>
+nmap <leader>w :Vista!!<CR>
 
 " no highlight
-nmap <silent> <leader><leader> :noh<CR>
+nmap <silent> ;; :noh<CR>
 
 " fzf
 nnoremap <silent> <M-b> :Buffers<CR>
 nnoremap <silent> <M-g> :GFiles<CR>
 nnoremap <silent> <M-f> :Files<CR>
 
-" nerdcommenter
-nmap <M-/> <Plug>NERDCommenterToggle
-vmap <M-/> <Plug>NERDCommenterToggle<CR>gv
-nmap <M-?> <Plug>NERDCommenterSexy
-vmap <M-?> <Plug>NERDCommenterSexy<CR>gv
+" incsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
-" tab navigatoin
-nnoremap <Tab>    :tabnext<CR>
-nnoremap <S-Tab>  :tabprevious<CR>
-nnoremap <C-t>    :tabnew<CR>
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+" repeat
+silent! call repeat#set("\<Plug>Surround", v:count)
+
+" tab navigation
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+
+nnoremap <C-t> :tabnew<CR>
+inoremap <C-t> <Esc>:tabnew<CR>
 
 nmap <leader>1 1gt
 nmap <leader>2 2gt
@@ -201,6 +228,7 @@ xnoremap <leader>g y :Rg <CR>
 nnoremap <Leader>g :Rg <C-r><C-w><CR>
 nnoremap <leader>G :Rg<Space>
 vnoremap <leader>G "gy:Rg<Space><C-r>g<CR>
+nnoremap <leader><leader>G :RG<CR>
 
 " find & replace: in all files
 "   after searching or text, press this mapping to do a project wide find and

@@ -1,21 +1,44 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "typescript"],
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "html",
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx",
+    "graphql"
+  ],
+  "coc.preferences.useQuickfixForLocations": true,
 
-  // eslint
+  "diagnostic.refreshAfterSave": true,
+
+  "suggest.enablePreview": true,
+  "suggest.minTriggerInputLength": 3,
+  "suggest.snippetIndicator": " [+] ",
+  "suggest.timeout": 1000,
+  "suggest.removeDuplicateItems": true,
+
+  "html.trace.server": "messages",
+  "html.format.wrapLineLength": 120,
+
   "eslint.packageManager": "yarn",
 
-  // tsserver
   "tslint.jsEnable": true,
   "tslint.packageManager": "yarn",
 
-  // javascript
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
 
-  // typescript
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
-  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "typescript.preferences.importModuleSpecifier": "relative"
 }
