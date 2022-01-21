@@ -6,9 +6,9 @@ local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+keymap("", ",", "<Nop>", opts)
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 
 -- Modes
 --   normal_mode = "n",
@@ -40,8 +40,13 @@ keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Insert --
--- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
+-- Daily Workflow
+keymap("i", "jl", "<Esc>la", opts)
+keymap("i", "jh", "<Esc>i", opts)
+keymap("i", "jj", "<Esc>A", opts)
+keymap("i", "jk", "<Esc>^i", opts)
+keymap("i", "j;", "<Esc>o", opts)
+keymap("i", "j:", "<Esc>O", opts)
 
 -- Visual --
 -- Stay in indent mode
