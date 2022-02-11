@@ -72,11 +72,6 @@ return packer.startup(function(use)
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
-		-- config = function()
-		-- 	require("hop").setup({
-		-- 		keys = "etovxqpdygfblzhckisuran",
-		-- 	})
-		-- end,
 	})
 	use({
 		"mg979/vim-visual-multi",
@@ -85,6 +80,11 @@ return packer.startup(function(use)
 	use("tpope/vim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
   use('christoomey/vim-tmux-navigator')
+   use {
+    "tzachar/cmp-tabnine",
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-cmp",
+  }
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
