@@ -101,10 +101,11 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+  if client.name == "tsserver" or client.name == "html" then
+    client.resolved_capabilities.document_formatting = false
+  end
 
+	if client.name == "tsserver" then
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup({})
     ts_utils.setup_client(client)
