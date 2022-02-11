@@ -117,6 +117,7 @@ cmp.setup {
         buffer = "[Buffer]",
         cmp_tabnine = "[TN]",
         path = "[Path]",
+        emoji = "[Emoji]",
       })[entry.source.name]
       return vim_item
     end,
@@ -127,6 +128,7 @@ cmp.setup {
     { name = "buffer" },
     { name = "cmp_tabnine" },
     { name = "path" },
+    { name = "emoji" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
