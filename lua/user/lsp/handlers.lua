@@ -109,9 +109,10 @@ M.on_attach = function(client, bufnr)
     ts_utils.setup({})
     ts_utils.setup_client(client)
 
-    -- buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
-    -- buf_map(bufnr, "n", "gr", ":TSLspRenameFile<CR>")
-    -- buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
+    buf_map(bufnr, "n", "to", ":TSLspOrganize<CR>")
+    buf_map(bufnr, "n", "ta", ":TSLspImportAll<CR>")
+    buf_map(bufnr, "n", "ti", ":TSLspImportCurrent<CR>")
+    buf_map(bufnr, "n", "tr", ":TSLspRenameFile<CR>")
 	end
 
 	lsp_commands()
