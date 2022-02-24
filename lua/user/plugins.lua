@@ -41,11 +41,12 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
 	-- Default Utlities
-	use("wbthomason/packer.nvim") -- Have packer manage itself
-	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
-	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
-	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-	use("numToStr/Comment.nvim") -- Easily comment stuff
+	use("wbthomason/packer.nvim")         -- Have packer manage itself
+	use("nvim-lua/popup.nvim")            -- An implementation of the Popup API from vim in Neovim
+	use("nvim-lua/plenary.nvim")          -- Useful lua functions used ny lots of plugins
+	use("windwp/nvim-autopairs")          -- Autopairs, integrates with both cmp and treesitter
+	use("numToStr/Comment.nvim")          -- Easily comment stuff
+  -- use('preservim/nerdcommenter')        -- Commenting
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
@@ -80,7 +81,7 @@ return packer.startup(function(use)
 	use("tpope/vim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
   use('christoomey/vim-tmux-navigator')
-   use {
+  use {
     "tzachar/cmp-tabnine",
     run = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
@@ -109,6 +110,14 @@ return packer.startup(function(use)
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use('jose-elias-alvarez/nvim-lsp-ts-utils') -- utils for typescript
+  use('filipdutescu/renamer.nvim')
+  use("ray-x/lsp_signature.nvim")
+  use("b0o/SchemaStore.nvim")
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  }
+
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
