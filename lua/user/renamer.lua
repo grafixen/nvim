@@ -11,7 +11,7 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"<F2>",
+	"<leader>rn",
 	'<cmd>lua require("renamer").rename({empty = true})<cr>',
 	{ noremap = true, silent = true }
 )
