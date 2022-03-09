@@ -119,9 +119,9 @@ return packer.startup(function(use)
     cmd = "TroubleToggle",
   }
 
-
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
+  use("nvim-telescope/telescope-file-browser.nvim")
 
 	-- Treesitter
 	use({
