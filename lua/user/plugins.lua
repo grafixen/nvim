@@ -81,11 +81,15 @@ return packer.startup(function(use)
 	use("tpope/vim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
   use('christoomey/vim-tmux-navigator')
-  use {
+  use({
     "tzachar/cmp-tabnine",
     run = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
-  }
+  })
+
+  -- Markup Languages
+  use('alvan/vim-closetag')
+  use("andreshazard/vim-freemarker")
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -101,9 +105,6 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-emoji")
 
 	-- snippets
-	-- use("L3MON4D3/LuaSnip") --snippet engine
-	-- use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
-
   use('SirVer/ultisnips')
   use('quangnguyen30192/cmp-nvim-ultisnips')
   use('honza/vim-snippets')
