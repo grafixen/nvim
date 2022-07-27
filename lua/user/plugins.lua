@@ -69,7 +69,7 @@ return packer.startup(function(use)
 		"neoclide/coc.nvim",
 		branch = "release",
 	})
-	use("matze/vim-move")
+  use("matze/vim-move")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -86,6 +86,9 @@ return packer.startup(function(use)
     run = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
   })
+  use("folke/todo-comments.nvim")
+  use("rcarriga/nvim-notify")
+  use("RRethy/vim-illuminate")
 
   -- Markup Languages
   use('alvan/vim-closetag')
@@ -126,6 +129,7 @@ return packer.startup(function(use)
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
   use("nvim-telescope/telescope-file-browser.nvim")
+  use('nvim-telescope/telescope-media-files.nvim')
 
 	-- Treesitter
 	use({
