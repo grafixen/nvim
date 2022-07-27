@@ -23,7 +23,7 @@ vim.g.rnvimr_enable_bw = 1
 vim.g.rnvimr_shadow_winblend = 70
 
 -- Draw border with both
-vim.g.rnvimr_ranger_cmd = 'ranger --cmd="set draw_borders both"'
+vim.g.rnvimr_ranger_cmd = {'ranger', '--cmd=set draw_borders both'}
 
 -- Map Rnvimr action
 -- for more info: https://github.com/kevinhwang91/rnvimr/issues/79
