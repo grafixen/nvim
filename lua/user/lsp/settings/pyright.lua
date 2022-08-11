@@ -1,9 +1,14 @@
 return {
+  cmd = { "py" },
   settings = {
     python = {
       analysis = {
-        autoImportCompletions = true,
         typeCheckingMode = "basic",
+        diagnosticMode = "workspace",
+        inlayHints = {
+          variableTypes = true,
+          functionReturnTypes = true,
+        },
       },
     },
   },

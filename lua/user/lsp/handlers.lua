@@ -94,7 +94,7 @@ local function lsp_keymaps(bufnr)
   buf_map(bufnr, "n", "<leader>gn", ":LspRename<CR>")
 	buf_map(bufnr, "n", "<leader>ga", ":LspCodeAction<CR>")
 	buf_map(bufnr, "n", "<leader>gl", ":LspDiagLine<CR>")
-  buf_map( bufnr, "n", "gl", ":LspDiagLine<CR>")
+  buf_map(bufnr, "n", "gl", ":LspDiagLine<CR>")
 	buf_map(bufnr, "n", "[d", ":LspDiagPrev<CR>")
   buf_map(bufnr, "n", "]d", ":LspDiagNext<CR>")
 	buf_map(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
@@ -106,14 +106,14 @@ M.on_attach = function(client, bufnr)
   end
 
 	if client.name == "tsserver" then
-    local ts_utils = require("nvim-lsp-ts-utils")
+    local ts_utils = require("typescript")
     ts_utils.setup({})
-    ts_utils.setup_client(client)
 
-    buf_map(bufnr, "n", "to", ":TSLspOrganize<CR>")
-    buf_map(bufnr, "n", "ta", ":TSLspImportAll<CR>")
-    buf_map(bufnr, "n", "ti", ":TSLspImportCurrent<CR>")
-    buf_map(bufnr, "n", "tr", ":TSLspRenameFile<CR>")
+    buf_map(bufnr, "n", "to", ":TypescriptOrganizeImports<CR>")   -- Organize Imports
+    buf_map(bufnr, "n", "ta", ":TypescriptAddMissingImports<CR>") -- Add Missing Imports
+    buf_map(bufnr, "n", "tf", ":TypescriptFixAll<CR>")            -- Fix all
+    buf_map(bufnr, "n", "tx", ":TypescriptRemoveUnused<CR>")      -- Remove Unused Variables
+    buf_map(bufnr, "n", "tr", ":TypescriptRenameFile<CR>")        -- Rename File
 	end
 
 	lsp_commands()

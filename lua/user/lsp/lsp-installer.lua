@@ -7,12 +7,15 @@ local servers = {
   "angularls",
   "cssls",
   "emmet_ls",
+  "eslint",
   "graphql",
   "html",
   "jsonls",
   "pyright",
   "sumneko_lua",
+  "tailwindcss",
   "tsserver",
+  "yamlls"
 }
 
 local settings = {
