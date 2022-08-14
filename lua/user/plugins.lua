@@ -41,17 +41,17 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
 	-- Default Utlities
-	use("wbthomason/packer.nvim")         -- Have packer manage itself
-	use("nvim-lua/popup.nvim")            -- An implementation of the Popup API from vim in Neovim
-	use("nvim-lua/plenary.nvim")          -- Useful lua functions used ny lots of plugins
-	use("windwp/nvim-autopairs")          -- Autopairs, integrates with both cmp and treesitter
-  use('preservim/nerdcommenter')        -- Commenting
+	use("wbthomason/packer.nvim") -- Have packer manage itself
+	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
+	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
+	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
+	use("preservim/nerdcommenter") -- Commenting
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
 	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
-  use('andymass/vim-matchup')
+	use("andymass/vim-matchup")
 	use("akinsho/toggleterm.nvim")
 	use("lewis6991/impatient.nvim")
 	use("lukas-reineke/indent-blankline.nvim")
@@ -68,7 +68,7 @@ return packer.startup(function(use)
 		"neoclide/coc.nvim",
 		branch = "release",
 	})
-  use("matze/vim-move")
+	use("matze/vim-move")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -79,19 +79,19 @@ return packer.startup(function(use)
 	})
 	use("tpope/vim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
-  use('christoomey/vim-tmux-navigator')
-  use({
-    "tzachar/cmp-tabnine",
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-  })
-  use("folke/todo-comments.nvim")
-  use("rcarriga/nvim-notify")
-  use("RRethy/vim-illuminate")
+	use("christoomey/vim-tmux-navigator")
+	use({
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+	})
+	use("folke/todo-comments.nvim")
+	use("rcarriga/nvim-notify")
+	use("RRethy/vim-illuminate")
 
-  -- Markup Languages
-  use('alvan/vim-closetag')
-  use("andreshazard/vim-freemarker")
+	-- Markup Languages
+	use("alvan/vim-closetag")
+	use("andreshazard/vim-freemarker")
 
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -104,56 +104,60 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
-  use("hrsh7th/cmp-emoji")
+	use("hrsh7th/cmp-emoji")
 
 	-- snippets
-  use('SirVer/ultisnips')
-  use('quangnguyen30192/cmp-nvim-ultisnips')
-  use('honza/vim-snippets')
+	use("SirVer/ultisnips")
+	use("quangnguyen30192/cmp-nvim-ultisnips")
+	use("honza/vim-snippets")
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
 	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
-  use("williamboman/mason.nvim")
-  use("williamboman/mason-lspconfig.nvim")
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
-  use('jose-elias-alvarez/typescript.nvim') -- utils for typescript
-  use("lvimuser/lsp-inlayhints.nvim")
-  use('filipdutescu/renamer.nvim')
-  use("ray-x/lsp_signature.nvim")
-  use("b0o/SchemaStore.nvim")
-  use {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  }
+	use("jose-elias-alvarez/typescript.nvim") -- utils for typescript
+	use("onsails/lspkind.nvim")
+	use("lvimuser/lsp-inlayhints.nvim")
+	use("filipdutescu/renamer.nvim")
+	use("ray-x/lsp_signature.nvim")
+	use("b0o/SchemaStore.nvim")
+	use({
+		"folke/trouble.nvim",
+		cmd = "TroubleToggle",
+	})
 
-  -- Debugging
-  use "mfussenegger/nvim-dap"
-  use "rcarriga/nvim-dap-ui"
+	-- Debugging
+	use("mfussenegger/nvim-dap")
+	use("rcarriga/nvim-dap-ui")
 
-  -- Project
-  use("ahmedkhalf/project.nvim")
-  use("windwp/nvim-spectre")
+	-- Project
+	use("ahmedkhalf/project.nvim")
+	use("windwp/nvim-spectre")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
-  use("nvim-telescope/telescope-file-browser.nvim")
-  use('nvim-telescope/telescope-media-files.nvim')
+	use("nvim-telescope/telescope-file-browser.nvim")
+	use("nvim-telescope/telescope-media-files.nvim")
 
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 	})
+	use("nvim-treesitter/playground")
+	use("nvim-treesitter/nvim-treesitter-refactor")
+	use("nvim-treesitter/nvim-treesitter-textobjects")
+	use("p00f/nvim-ts-rainbow")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 
-  -- Graveyard
-  -- use('jose-elias-alvarez/nvim-lsp-ts-utils') -- utils for typescript
-
+	-- Graveyard
+	-- use('jose-elias-alvarez/nvim-lsp-ts-utils') -- utils for typescript
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
