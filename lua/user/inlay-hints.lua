@@ -1,4 +1,4 @@
-local status_ok, inlay_hints = pcall(require, "inlay-hints")
+local status_ok, inlay_hints = pcall(require, "lsp-inlayhints")
 if not status_ok then
   return
   print("inlay-hints not found")

@@ -13,23 +13,27 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
 	debug = false,
 	sources = {
-		-- JavaScript, TypeScript
-		-- Prettier File Format (Alternative: Activate CoC => c.f. init.lua)
-		-- formatting.prettier_d_slim.with({
-  --     extra_filetypes = { "toml", "solidity" },
-  --     extra_args = { "--semi", "--single-quote", "--jsx-single-quote" } }
-  --   ),
+		-- Prettier (Alternative: coc-prettier)
+		-- formatting.prettierd,
 
-    -- eslint
-    diagnostics.eslint_d,
-    code_actions.eslint_d,
+		-- Eslint (Alternative: coc-eslint)
+		diagnostics.eslint_d.with({
+			diagnostics_format = "[eslint] #{m}\n(#{c})",
+		}),
+		code_actions.eslint_d,
 
 		-- Python
 		formatting.black.with({ extra_args = { "--fast" } }),
 		-- diagnostics.flake8
 
-		-- LUA
-		-- formatting.stylua,
+		-- Lua
+		formatting.stylua,
+
+		-- Markdown
+		diagnostics.markdownlint,
+
+		-- Write Good
+		diagnostics.write_good,
 	},
 	on_attach = function(client)
 		if client.resolved_capabilities.document_formatting then

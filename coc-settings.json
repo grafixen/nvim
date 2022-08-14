@@ -10,8 +10,11 @@
     "typescript.tsx"
   ],
 
+  "prettier.bracketSameLine": true,
+  "prettier.bracketSpacing": true,
+  "prettier.printWidth": 120,
   "prettier.semi": true,
   "prettier.tabWidth": 2,
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "es5"
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true
 }

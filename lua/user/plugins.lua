@@ -53,7 +53,6 @@ return packer.startup(function(use)
 	use("nvim-lualine/lualine.nvim")
   use('andymass/vim-matchup')
 	use("akinsho/toggleterm.nvim")
-	use("ahmedkhalf/project.nvim")
 	use("lewis6991/impatient.nvim")
 	use("lukas-reineke/indent-blankline.nvim")
 	use("goolord/alpha-nvim")
@@ -114,7 +113,9 @@ return packer.startup(function(use)
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
-	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+  use("williamboman/mason.nvim")
+  use("williamboman/mason-lspconfig.nvim")
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use('jose-elias-alvarez/typescript.nvim') -- utils for typescript
@@ -130,6 +131,10 @@ return packer.startup(function(use)
   -- Debugging
   use "mfussenegger/nvim-dap"
   use "rcarriga/nvim-dap-ui"
+
+  -- Project
+  use("ahmedkhalf/project.nvim")
+  use("windwp/nvim-spectre")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
