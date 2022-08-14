@@ -8,9 +8,19 @@ if not lspkind_ok then
 	return
 end
 
+local snip_status_ok, luasnip = pcall(require, "luasnip")
+if not snip_status_ok then
+	return
+end
+
+-- local check_backspace = function()
+--   local col = vim.fn.col(".") - 1
+--   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+-- end
+
 local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 -- local icons = require("user.icons")
@@ -18,14 +28,33 @@ end
 
 local types = require("cmp.types")
 local str = require("cmp.utils.str")
+local compare = require("cmp.config.compare")
+
+-- Luasnip
+require("luasnip.loaders.from_vscode").lazy_load()
+
+-- One peculiarity of honza/vim-snippets is that the file containing global
+-- snippets is _.snippets, so we need to tell luasnip that the filetype "_"
+-- contains global snippets:
+luasnip.filetype_extend("all", { "_" })
+luasnip.filetype_extend("typescript", { "javascript" })
 
 cmp.setup({
+	-- enabled = function()
+	--   local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+	--   if buftype == "prompt" then
+	--     return false
+	--   end
+	--   return vim.g.cmp_active
+	-- end,
+	preselect = cmp.PreselectMode.None,
 	snippet = {
 		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body) -- For ultisnips users.
+			-- vim.fn["UltiSnips#Anon"](args.body) -- For ultisnips users.
+			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
-	mapping = {
+	mapping = cmp.mapping.preset.insert({
 		["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 		["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
@@ -42,26 +71,49 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+			elseif luasnip.jumpable(1) then
+				luasnip.jump(1)
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif luasnip.expandable() then
+				luasnip.expand()
 			elseif check_backspace() then
+				-- cmp.complete()
 				fallback()
 			else
 				fallback()
 			end
+			-- if cmp.visible() then
+			--   cmp.select_next_item()
+			-- elseif check_backspace() then
+			--   fallback()
+			-- else
+			--   fallback()
+			-- end
 		end, {
 			"i",
 			"s",
+			"c",
 		}),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
+			-- if cmp.visible() then
+			--   cmp.select_prev_item()
+			-- else
+			--   fallback()
+			-- end
 		end, {
 			"i",
 			"s",
+			"c",
 		}),
-	},
+	}),
 	formatting = {
 		fields = {
 			cmp.ItemField.Abbr,
@@ -75,12 +127,13 @@ cmp.setup({
 				vim_item.menu = ({
 					nvim_lsp = "ﲳ",
 					-- nvim_lua = "",
-					cmp_tabnine = "",
+					cmp_tabnine = "ﮧ",
 					treesitter = "",
 					path = "ﱮ",
 					buffer = "﬘",
 					-- zsh = "",
-					ultisnips = "",
+					-- ultisnips = "",
+					luasnip = "",
 					spell = "暈",
 				})[entry.source.name]
 
@@ -125,8 +178,22 @@ cmp.setup({
 		-- end,
 	},
 	sources = {
-		{ name = "ultisnips" }, -- For ultisnips users.
-		{ name = "nvim_lsp" },
+		-- { name = "ultisnips" }, -- For ultisnips users.
+		{ name = "luasnip", group_index = 2 },
+		{
+			name = "nvim_lsp",
+			filter = function(entry, ctx)
+				local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
+				if kind == "Snippet" and ctx.prev_context.filetype == "java" then
+					return true
+				end
+
+				if kind == "Text" then
+					return true
+				end
+			end,
+			group_index = 2,
+		},
 		{
 			name = "buffer",
 			option = {
@@ -134,11 +201,27 @@ cmp.setup({
 					return vim.api.nvim_list_bufs()
 				end,
 			},
+			group_index = 2,
 		},
-		{ name = "cmp_tabnine" },
-		{ name = "path" },
-		{ name = "treesitter" },
+		{ name = "cmp_tabnine", group_index = 2 },
+		{ name = "path", group_index = 2 },
+		{ name = "treesitter", group_index = 2 },
 		-- { name = "emoji" },
+	},
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			compare.offset,
+			compare.exact,
+			-- compare.scopes,
+			compare.score,
+			compare.recently_used,
+			compare.locality,
+			-- compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+		},
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
@@ -156,6 +239,5 @@ cmp.setup({
 	},
 	experimental = {
 		ghost_text = true,
-		native_menu = false,
 	},
 })

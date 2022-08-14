@@ -107,9 +107,14 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-emoji")
 
 	-- snippets
-	use("SirVer/ultisnips")
-	use("quangnguyen30192/cmp-nvim-ultisnips")
+	use({
+		"L3MON4D3/LuaSnip",
+		wants = { "friendly-snippets", "vim-snippets" },
+	}) --snippet engine
+	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	use("honza/vim-snippets")
+	-- use("SirVer/ultisnips")
+	-- use("quangnguyen30192/cmp-nvim-ultisnips")
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
