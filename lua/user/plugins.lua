@@ -45,7 +45,6 @@ return packer.startup(function(use)
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
 	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-	use("preservim/nerdcommenter") -- Commenting
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
@@ -85,7 +84,6 @@ return packer.startup(function(use)
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp",
 	})
-	use("folke/todo-comments.nvim")
 	use("rcarriga/nvim-notify")
 	use("RRethy/vim-illuminate")
 
@@ -96,6 +94,7 @@ return packer.startup(function(use)
 	-- Colorschemes
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
 	use("lunarvim/darkplus.nvim")
+	use("marko-cerovac/material.nvim")
 
 	-- cmp plugins
 	use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -134,6 +133,11 @@ return packer.startup(function(use)
 		cmd = "TroubleToggle",
 	})
 
+	-- Comments
+  -- use("preservim/nerdcommenter") -- Commenting
+  use("numToStr/Comment.nvim")
+	use("folke/todo-comments.nvim")
+
 	-- Debugging
 	use("mfussenegger/nvim-dap")
 	use("rcarriga/nvim-dap-ui")
@@ -152,11 +156,12 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 	})
+	use("windwp/nvim-ts-autotag")
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("nvim-treesitter/playground")
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("p00f/nvim-ts-rainbow")
-	use("JoosepAlviste/nvim-ts-context-commentstring")
 
 	-- Git
 	use("lewis6991/gitsigns.nvim")
