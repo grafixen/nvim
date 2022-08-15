@@ -39,6 +39,7 @@ require("user.trouble")
 
 require("user.comment")
 require("user.todo-comments")
+require("user.surround")
 require("user.notify")
 require("user.ts-context")
 require("user.illuminate")

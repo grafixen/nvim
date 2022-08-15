@@ -76,7 +76,8 @@ return packer.startup(function(use)
 		"mg979/vim-visual-multi",
 		branch = "master",
 	})
-	use("tpope/vim-surround")
+	-- use("tpope/vim-surround")
+  use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
 	use("christoomey/vim-tmux-navigator")
 	use({
