@@ -27,10 +27,21 @@ configs.setup({
 	context_commentstring = {
 		enable = true,
 		enable_autocmd = false,
+    -- For more config info: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+		config = {
+			javascript = {
+				__default = "// %s",
+				jsx_element = "{/* %s */}",
+				jsx_fragment = "{/* %s */}",
+				jsx_attribute = "// %s",
+				comment = "// %s",
+			},
+			typescript = { __default = "// %s", __multiline = "/* %s */" },
+		},
 	},
 	autotag = {
 		enable = true,
-		disable = { "xml" },
+		disable = { "xml", "markdown" },
 	},
 	playground = {
 		enable = true,
@@ -54,6 +65,18 @@ configs.setup({
 		enable = true,
 		extended_mode = true, -- Highlight also non-parentheses delimiters
 		max_file_lines = 1000,
+		colors = {
+			-- "#68a0b0",
+			-- "#946EaD",
+			-- "#c7aA6D",
+			"Gold",
+			"Orchid",
+			"DodgerBlue",
+			-- "Cornsilk",
+			-- "Salmon",
+			-- "LawnGreen",
+		},
+		disable = { "html" },
 	},
 	refactor = {
 		smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
@@ -105,10 +128,29 @@ configs.setup({
 			enable = true,
 			lookahead = true,
 			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
 				["af"] = "@function.outer",
 				["if"] = "@function.inner",
+				["at"] = "@class.outer",
+				["it"] = "@class.inner",
 				["ac"] = "@call.outer",
 				["ic"] = "@call.inner",
+				["aa"] = "@parameter.outer",
+				["ia"] = "@parameter.inner",
+				["al"] = "@loop.outer",
+				["il"] = "@loop.inner",
+				["ai"] = "@conditional.outer",
+				["ii"] = "@conditional.inner",
+				["a/"] = "@comment.outer",
+				["i/"] = "@comment.inner",
+				["ab"] = "@block.outer",
+				["ib"] = "@block.inner",
+				["as"] = "@statement.outer",
+				["is"] = "@scopename.inner",
+				["aA"] = "@attribute.outer",
+				["iA"] = "@attribute.inner",
+				["aF"] = "@frame.outer",
+				["iF"] = "@frame.inner",
 			},
 		},
 		swap = {

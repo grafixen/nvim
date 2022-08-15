@@ -93,7 +93,6 @@ cmp.setup({
 		end, {
 			"i",
 			"s",
-			"c",
 		}),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -111,7 +110,6 @@ cmp.setup({
 		end, {
 			"i",
 			"s",
-			"c",
 		}),
 	}),
 	formatting = {
