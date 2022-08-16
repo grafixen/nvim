@@ -41,14 +41,6 @@ function M.toggle_sniprun()
   end
 end
 
-function M.remove_augroup(name)
-  if vim.fn.exists("#" .. name) == 1 then
-    vim.cmd("au! " .. name)
-  end
-end
-
-vim.cmd [[ command! SnipRunToggle execute 'lua require("user.functions").toggle_sniprun()' ]]
-
 -- get length of current word
 function M.get_word_length()
   local word = vim.fn.expand "<cword>"
@@ -113,5 +105,48 @@ function M.smart_quit()
     vim.cmd "q!"
   end
 end
+
+-- toggle boolean word - true/false
+function M.toggle_bool(args)
+  if args.word == "true" then
+    vim.cmd [[norm ciwfalse]]
+  elseif args.word == "false" then
+    vim.cmd [[norm ciwtrue]]
+  else
+    print "Word under cursor needs to be 'true' or 'false"
+  end
+end
+
+function M.enable_format_on_save()
+  vim.cmd [[
+    augroup format_on_save
+      autocmd! 
+      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false }) 
+    augroup end
+  ]]
+  vim.notify "Enabled format on save"
+end
+
+function M.disable_format_on_save()
+  M.remove_augroup "format_on_save"
+  vim.notify "Disabled format on save"
+end
+
+function M.toggle_format_on_save()
+  if vim.fn.exists "#format_on_save#BufWritePre" == 0 then
+    M.enable_format_on_save()
+  else
+    M.disable_format_on_save()
+  end
+end
+
+function M.remove_augroup(name)
+  if vim.fn.exists("#" .. name) == 1 then
+    vim.cmd("au! " .. name)
+  end
+end
+
+vim.cmd [[ command! SnipRunToggle execute 'lua require("user.functions").toggle_sniprun()' ]]
+vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]]
 
 return M
