@@ -41,5 +41,5 @@ luac.out
 
 
 plugin/packer_compiled.lua
-/.DS_Store
 /LICENSE
+.DS_Store
