@@ -31,6 +31,12 @@ local mode = {
 	end,
 }
 
+local filename = {
+	"filename",
+	icons_enabled = true,
+	icon = "",
+}
+
 local filetype = {
 	"filetype",
 	icons_enabled = false,
@@ -74,7 +80,7 @@ lualine.setup({
 	sections = {
 		lualine_a = { branch, diagnostics },
 		lualine_b = { mode },
-		lualine_c = {},
+		lualine_c = { filename },
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, spaces, "encoding", filetype },
 		lualine_y = { location },
