@@ -36,7 +36,10 @@ null_ls.setup({
 		diagnostics.write_good,
 	},
 	on_attach = function(client)
-		if client.resolved_capabilities.document_formatting then
+    if client.name == "tsserver" then
+      client.server_capabilities.document_formatting = false -- 0.7 and earlier
+      client.server_capabilities.documentFormattingProvider = false -- 0.8 and later  
+    elseif client.server_capabilities.document_formatting then
 			vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
