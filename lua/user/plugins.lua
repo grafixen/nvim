@@ -113,6 +113,10 @@ return packer.startup(function(use)
 	}) --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	use("honza/vim-snippets")
+  use({
+    "michaelb/sniprun",
+		run = "./install.sh",
+  })
 	-- use("SirVer/ultisnips")
 	-- use("quangnguyen30192/cmp-nvim-ultisnips")
 

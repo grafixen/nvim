@@ -35,6 +35,7 @@ require("user.renamer")
 require("user.rnvimr")
 require("user.tabnine")
 require("user.trouble")
+require("user.sniprun")
 -- require("user.ultisnips")
 
 require("user.comment")
