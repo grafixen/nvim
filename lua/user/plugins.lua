@@ -144,6 +144,9 @@ return packer.startup(function(use)
 
 	-- OrgMode
 	use("nvim-orgmode/orgmode")
+	use("akinsho/org-bullets.nvim")
+	use("dkarter/bullets.vim")
+
 	-- Project
 	use("ahmedkhalf/project.nvim")
 	use("windwp/nvim-spectre")
