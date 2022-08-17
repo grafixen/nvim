@@ -204,6 +204,7 @@ cmp.setup({
 		{ name = "cmp_tabnine", group_index = 2 },
 		{ name = "path", group_index = 2 },
 		{ name = "treesitter", group_index = 2 },
+		{ name = "orgmode", group_index = 2 },
 		-- { name = "emoji" },
 	},
 	sorting = {

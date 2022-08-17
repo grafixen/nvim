@@ -36,6 +36,7 @@ require("user.tabnine")
 require("user.trouble")
 require("user.sniprun")
 
+require("user.orgmode")
 require("user.comment")
 require("user.todo-comments")
 require("user.surround")

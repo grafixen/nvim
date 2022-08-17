@@ -77,7 +77,7 @@ return packer.startup(function(use)
 		branch = "master",
 	})
 	-- use("tpope/vim-surround")
-  use("kylechui/nvim-surround")
+	use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
 	use("christoomey/vim-tmux-navigator")
 	use({
@@ -93,11 +93,10 @@ return packer.startup(function(use)
 	use("andreshazard/vim-freemarker")
 
 	-- Colorschemes
-	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
 	use("lunarvim/darkplus.nvim")
 	use("marko-cerovac/material.nvim")
 
-	-- cmp plugins
+	-- CMP
 	use("hrsh7th/nvim-cmp") -- The completion plugin
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
@@ -106,23 +105,20 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-emoji")
 
-	-- snippets
+	-- Snippets
 	use({
 		"L3MON4D3/LuaSnip",
 		wants = { "friendly-snippets", "vim-snippets" },
 	}) --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	use("honza/vim-snippets")
-  use({
-    "michaelb/sniprun",
+	use({
+		"michaelb/sniprun",
 		run = "./install.sh",
-  })
-	-- use("SirVer/ultisnips")
-	-- use("quangnguyen30192/cmp-nvim-ultisnips")
+	})
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
-	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
@@ -139,14 +135,15 @@ return packer.startup(function(use)
 	})
 
 	-- Comments
-  -- use("preservim/nerdcommenter") -- Commenting
-  use("numToStr/Comment.nvim")
+	use("numToStr/Comment.nvim")
 	use("folke/todo-comments.nvim")
 
 	-- Debugging
 	use("mfussenegger/nvim-dap")
 	use("rcarriga/nvim-dap-ui")
 
+	-- OrgMode
+	use("nvim-orgmode/orgmode")
 	-- Project
 	use("ahmedkhalf/project.nvim")
 	use("windwp/nvim-spectre")
@@ -172,7 +169,12 @@ return packer.startup(function(use)
 	use("lewis6991/gitsigns.nvim")
 
 	-- Graveyard
+	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+	-- use("preservim/nerdcommenter") -- Commenting
+	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
 	-- use('jose-elias-alvarez/nvim-lsp-ts-utils') -- utils for typescript
+	-- use("SirVer/ultisnips")
+	-- use("quangnguyen30192/cmp-nvim-ultisnips")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
