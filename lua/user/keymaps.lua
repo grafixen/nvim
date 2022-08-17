@@ -48,14 +48,6 @@ keymap("i", "jk", "<Esc>^i", opts)
 keymap("i", "j;", "<Esc>o", opts)
 keymap("i", "j:", "<Esc>O", opts)
 
--- Toggle Boolean
-keymap(
-  "n",
-  "gtb",
-  ":lua require('user.functions').toggle_bool({word=vim.fn.expand('<cword>')})<CR>",
-  { noremap = true, silent = true }
-)
-
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
