@@ -34,7 +34,10 @@ local mode = {
 local filename = {
 	"filename",
 	icons_enabled = true,
-	icon = "",
+	icon = {
+		"",
+		align = "right",
+	},
 }
 
 local filetype = {
@@ -72,8 +75,8 @@ lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = "auto",
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		-- component_separators = { left = "", right = "" },
 		-- section_separators = { left = "", right = "" },
 		disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
@@ -89,29 +92,15 @@ lualine.setup({
 		lualine_z = { progress },
 	},
 	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
 		lualine_c = { "filename" },
 		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
 	},
 	tabline = {},
 	winbar = {
-    lualine_a = {},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = { diff },
 		lualine_z = { filename },
-  },
-  inactive_winbar = {
-    lualine_a = {},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = { diff },
+	},
+	inactive_winbar = {
 		lualine_z = { filename },
-  },
+	},
 	extensions = {},
 })
