@@ -124,18 +124,12 @@ local function lsp_keymaps(bufnr)
 	buf_map(bufnr, "n", "do", ":LspDiagLine<CR>")
 	buf_map(bufnr, "n", "dj", ":LspDiagNext<CR>")
 	buf_map(bufnr, "n", "dk", ":LspDiagPrev<CR>")
-
-	-- List of all Diagnostics has to be forced: c.f. lua.user.keymaps
-	-- buf_map(bufnr, "n", "gl", "<cmd>Telescope diagnostics<CR>")
-	-- buf_map(bufnr, "n", "gL", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-
+	buf_map(bufnr, "n", "gl", ":Telescope diagnostics<CR>")
+	buf_map(bufnr, "n", "gL", ":lua vim.diagnostic.setloclist()<CR>")
+	-- Actions
 	buf_map(bufnr, "n", "<M-f>", ":LspFormat<CR>")
 	buf_map(bufnr, "n", "<M-a>", ":LspCodeAction<CR>")
 	buf_map(bufnr, "n", "<M-r>", ":LspRename<CR>")
-
-	-- Fbufnr, orce Diagnostics: Continued from "lua.user.lsp.handlers"
-	buf_map(bufnr, "n", "gl", ":Telescope diagnostics<CR>")
-	buf_map(bufnr, "n", "gL", ":lua vim.diagnostic.setloclist()<CR>")
 end
 
 M.on_attach = function(client, bufnr)
