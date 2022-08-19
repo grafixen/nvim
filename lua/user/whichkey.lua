@@ -171,7 +171,7 @@ local mappings = {
 		F = { "<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Range Format" },
 		i = { "<cmd>LspInfo<cr>", "LSP Info" },
 		I = { "<cmd>NullLsInfo<cr>", "Null-ls Info" },
-		r = { "<cmd>LspRename<CR>", "Rename" },
+		c = { "<cmd>LspRename<CR>", "Rename" },
 		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
 		S = {
 			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
@@ -185,7 +185,8 @@ local mappings = {
 			"<cmd>LspDiagPrev<CR>",
 			"Prev Diagnostic",
 		},
-		q = { "<cmd>Telescope lsp_references<CR>", "References" },
+		Q = { "<cmd>Telescope lsp_references<CR>", "References" },
+		q = { "<cmd>LspQuickfix<CR>", "Quickfix" },
 	},
 	r = {
 		name = "Replace",
