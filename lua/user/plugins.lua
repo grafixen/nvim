@@ -47,7 +47,6 @@ return packer.startup(function(use)
 	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
-	use("akinsho/bufferline.nvim")
 	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
 	use("andymass/vim-matchup")
@@ -117,6 +116,9 @@ return packer.startup(function(use)
 		"michaelb/sniprun",
 		run = "./install.sh",
 	})
+
+	-- Tabline
+	use("akinsho/bufferline.nvim")
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
