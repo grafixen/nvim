@@ -6,7 +6,9 @@ end
 bufferline.setup({
 	options = {
 		mode = "buffers",
-		numbers = "buffer_id",
+		numbers = function(opts)
+			return string.format("%s.", opts.ordinal)
+		end,
 		diagnostics = "nvim_lsp",
 		diagnostics_update_in_insert = false,
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -31,10 +33,16 @@ bufferline.setup({
 				return true
 			end
 		end,
-		sort_by = function(buffer_a, buffer_b)
-			local mod_a = ((vim.loop.fs_stat(buffer_a.path) or {}).mtime or {}).sec or 0
-			local mod_b = ((vim.loop.fs_stat(buffer_b.path) or {}).mtime or {}).sec or 0
-			return mod_a > mod_b
-		end,
+		-- sort_by = function(buffer_a, buffer_b)
+		-- 	local mod_a = ((vim.loop.fs_stat(buffer_a.path) or {}).mtime or {}).sec or 0
+		-- 	local mod_b = ((vim.loop.fs_stat(buffer_b.path) or {}).mtime or {}).sec or 0
+		-- 	return mod_a > mod_b
+		-- end,
 	},
 })
+
+local keymap = vim.api.nvim_set_keymap
+local options = { noremap = true, silent = true }
+
+-- Magic buffer-picking mode
+keymap("n", "<Leader>;", ":BufferLinePick<CR>", options)
