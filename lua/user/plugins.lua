@@ -132,10 +132,6 @@ return packer.startup(function(use)
 	use("filipdutescu/renamer.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("b0o/SchemaStore.nvim")
-	use({
-		"folke/trouble.nvim",
-		cmd = "TroubleToggle",
-	})
 
 	-- Comments
 	use("numToStr/Comment.nvim")
@@ -181,6 +177,10 @@ return packer.startup(function(use)
 	-- use('jose-elias-alvarez/nvim-lsp-ts-utils') -- utils for typescript
 	-- use("SirVer/ultisnips")
 	-- use("quangnguyen30192/cmp-nvim-ultisnips")
+	-- use({
+	-- 	"folke/trouble.nvim",
+	-- 	cmd = "TroubleToggle",
+	-- })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
