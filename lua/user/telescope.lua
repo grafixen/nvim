@@ -187,7 +187,12 @@ telescope.setup({
 			-- theme = "dropdown",
 			initial_mode = "normal",
 		},
-
+		diagnostics = {
+			theme = "dropdown",
+			layout_config = {
+				width = 0.8,
+			},
+		},
 		-- Default configuration for builtin pickers goes here:
 		-- picker_name = {
 		--   picker_config_key = value,
