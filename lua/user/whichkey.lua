@@ -156,7 +156,6 @@ local mappings = {
 			"Diff",
 		},
 	},
-
 	l = {
 		name = "LSP",
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -170,9 +169,8 @@ local mappings = {
 		},
 		f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
 		F = { "<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Range Format" },
-		i = { "<cmd>LspInfo<cr>", "Info" },
-		I = { "<cmd>NullLsInfo<cr>", "Null Ls Info" },
-		q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
+		i = { "<cmd>LspInfo<cr>", "LSP Info" },
+		I = { "<cmd>NullLsInfo<cr>", "Null-ls Info" },
 		r = { "<cmd>LspRename<CR>", "Rename" },
 		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
 		S = {
@@ -187,6 +185,7 @@ local mappings = {
 			"<cmd>LspDiagPrev<CR>",
 			"Prev Diagnostic",
 		},
+		q = { "<cmd>Telescope lsp_references<CR>", "References" },
 	},
 	r = {
 		name = "Replace",
@@ -217,7 +216,6 @@ local mappings = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
-
 	t = {
 		name = "Terminal",
 		n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
