@@ -71,6 +71,10 @@ M.setup = function()
 		-- width = 60,
 		-- height = 30,
 	})
+
+	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+	})
 end
 
 local function buf_map(bufnr, mode, lhs, rhs, opts)
@@ -108,15 +112,15 @@ local function lsp_commands()
 end
 
 local function lsp_keymaps(bufnr)
-  -- Definitions
+	-- Definitions
 	buf_map(bufnr, "n", "gD", ":LspDeclaration<CR>")
 	buf_map(bufnr, "n", "gd", ":LspDef<CR>")
-  -- Information
+	-- Information
 	buf_map(bufnr, "n", "K", ":LspHover<CR>")
-  buf_map(bufnr, "n", "<C-k>", ":LspSignatureHelp<CR>")
+	buf_map(bufnr, "n", "<C-k>", ":LspSignatureHelp<CR>")
 	buf_map(bufnr, "n", "gi", ":LspImplementation<CR>")
 	buf_map(bufnr, "n", "gr", ":LspRefs<CR>")
-  -- Diagnostics
+	-- Diagnostics
 	buf_map(bufnr, "n", "do", ":LspDiagLine<CR>")
 	buf_map(bufnr, "n", "dj", ":LspDiagNext<CR>")
 	buf_map(bufnr, "n", "dk", ":LspDiagPrev<CR>")
@@ -128,6 +132,10 @@ local function lsp_keymaps(bufnr)
 	buf_map(bufnr, "n", "<M-f>", ":LspFormat<CR>")
 	buf_map(bufnr, "n", "<M-a>", ":LspCodeAction<CR>")
 	buf_map(bufnr, "n", "<M-r>", ":LspRename<CR>")
+
+	-- Fbufnr, orce Diagnostics: Continued from "lua.user.lsp.handlers"
+	buf_map(bufnr, "n", "gl", ":Telescope diagnostics<CR>")
+	buf_map(bufnr, "n", "gL", ":lua vim.diagnostic.setloclist()<CR>")
 end
 
 M.on_attach = function(client, bufnr)
