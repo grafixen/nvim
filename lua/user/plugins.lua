@@ -63,10 +63,10 @@ return packer.startup(function(use)
 		"kevinhwang91/rnvimr",
 		run = "make sync",
 	})
-	use({
-		"neoclide/coc.nvim",
-		branch = "release",
-	})
+	-- use({
+	-- 	"neoclide/coc.nvim",
+	-- 	branch = "release",
+	-- })
 	use("matze/vim-move")
 	use({
 		"phaazon/hop.nvim",
