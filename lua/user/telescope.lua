@@ -231,3 +231,9 @@ telescope.setup({
 		-- },
 	},
 })
+
+local keymap = vim.api.nvim_set_keymap
+local options = { silent = true, noremap = true }
+
+-- Launch Telescope without any argument
+keymap("n", "tt", "<cmd>lua require('telescope.builtin').builtin() <CR>", options)
