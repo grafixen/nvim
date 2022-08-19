@@ -27,7 +27,7 @@ null_ls.setup({
 	debug = false,
 	sources = {
 		-- Prettier (Alternative: coc-prettier)
-		-- formatting.prettierd,
+		formatting.prettierd,
 
 		-- Eslint (Alternative: coc-eslint)
 		diagnostics.eslint_d.with({
