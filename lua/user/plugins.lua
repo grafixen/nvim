@@ -72,10 +72,6 @@ return packer.startup(function(use)
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
 	})
-	use({
-		"mg979/vim-visual-multi",
-		branch = "master",
-	})
 	-- use("tpope/vim-surround")
 	use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
@@ -104,6 +100,12 @@ return packer.startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-emoji")
+
+	-- Multi Cursor
+	use({
+		"mg979/vim-visual-multi",
+		branch = "master",
+	})
 
 	-- Snippets
 	use({
