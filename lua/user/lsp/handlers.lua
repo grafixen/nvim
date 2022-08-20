@@ -137,7 +137,7 @@ end
 M.on_attach = function(client, bufnr)
 	lsp_commands()
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
+	-- lsp_highlight_document(client)
 end
 
 return M
