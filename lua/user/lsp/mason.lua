@@ -19,6 +19,7 @@ local servers = {
   "dockerls",
 	"emmet_ls",
 	-- "eslint", => Use Null-ls instead
+  "gopls",
 	"graphql",
 	"html",
 	"jsonls",
