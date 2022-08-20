@@ -63,16 +63,11 @@ return packer.startup(function(use)
 		"kevinhwang91/rnvimr",
 		run = "make sync",
 	})
-	-- use({
-	-- 	"neoclide/coc.nvim",
-	-- 	branch = "release",
-	-- })
 	use("matze/vim-move")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
 	})
-	-- use("tpope/vim-surround")
 	use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
 	use("christoomey/vim-tmux-navigator")
@@ -91,6 +86,7 @@ return packer.startup(function(use)
 	-- Colorschemes
 	use("lunarvim/darkplus.nvim")
 	use("marko-cerovac/material.nvim")
+	use("ray-x/starry.nvim")
 
 	-- CMP
 	use("hrsh7th/nvim-cmp") -- The completion plugin
@@ -182,6 +178,11 @@ return packer.startup(function(use)
 	-- use({
 	-- 	"folke/trouble.nvim",
 	-- 	cmd = "TroubleToggle",
+	-- })
+	-- use("tpope/vim-surround")
+	-- use({
+	-- 	"neoclide/coc.nvim",
+	-- 	branch = "release",
 	-- })
 
 	-- Automatically set up your configuration after cloning packer.nvim
