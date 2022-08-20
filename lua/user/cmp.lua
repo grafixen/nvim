@@ -38,6 +38,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- contains global snippets:
 luasnip.filetype_extend("all", { "_" })
 luasnip.filetype_extend("typescript", { "javascript" })
+luasnip.filetype_extend("html", { "javascript" })
 
 cmp.setup({
 	-- enabled = function()
