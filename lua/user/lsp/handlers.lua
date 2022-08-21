@@ -97,7 +97,7 @@ end
 local function lsp_commands()
 	vim.cmd("command! LspDeclaration lua vim.lsp.buf.declaration()")
 	vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
-	vim.cmd("command! LspFormat lua vim.lsp.buf.formatting_sync(nil, 1000)")
+	vim.cmd("command! LspFormat lua vim.lsp.buf.format()")
 	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
 	vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
 	vim.cmd('command! LspQuickfix lua vim.lsp.buf.code_action({ only = {"quickfix"}, })')
