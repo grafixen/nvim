@@ -45,8 +45,6 @@ return packer.startup(function(use)
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
 	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-	use("kyazdani42/nvim-web-devicons")
-	use("kyazdani42/nvim-tree.lua")
 	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
 	use("andymass/vim-matchup")
@@ -59,11 +57,6 @@ return packer.startup(function(use)
 	use("nguyenvukhang/nvim-toggler")
 
 	-- Additional Utlities (Grafixen)
-	use({
-		"kevinhwang91/rnvimr",
-		run = "make sync",
-	})
-	use("matze/vim-move")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -78,6 +71,16 @@ return packer.startup(function(use)
 	})
 	use("rcarriga/nvim-notify")
 	use("RRethy/vim-illuminate")
+
+	-- File Manager
+	-- use({
+	-- 	"kevinhwang91/rnvimr",
+	-- 	run = "make sync",
+	-- })
+	use("lmburns/lf.nvim")
+	use("kyazdani42/nvim-web-devicons")
+	use("kyazdani42/nvim-tree.lua")
+	use("matze/vim-move")
 
 	-- Markup Languages
 	use("alvan/vim-closetag")
