@@ -26,27 +26,24 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
 	debug = false,
 	sources = {
-		-- Prettier (Alternative: coc-prettier)
-		formatting.prettierd,
+		-- CODE ACTION
+		code_actions.eslint_d, -- Typescript
 
-		-- Eslint (Alternative: coc-eslint)
+		-- FORMATTING
+		formatting.fixjson, -- JSON
+		formatting.goimports, -- Go
+		formatting.gofumpt, -- Go
+		formatting.prettierd, -- Typescript
+		formatting.black.with({ extra_args = { "--fast" } }), -- Python
+		formatting.stylua, -- Lua
+
+		-- DIAGNOSTICS
+		diagnostics.revive, -- Go (linter)
+		diagnostics.markdownlint, -- markdown
 		diagnostics.eslint_d.with({
 			diagnostics_format = "[eslint] #{m}\n(#{c})",
-		}),
-		code_actions.eslint_d,
-
-		-- Python
-		formatting.black.with({ extra_args = { "--fast" } }),
-		-- diagnostics.flake8
-
-		-- Lua
-		formatting.stylua,
-
-		-- Markdown
-		diagnostics.markdownlint,
-
-		-- Write Good
-		diagnostics.write_good,
+		}), -- Typescript
+		diagnostics.write_good, -- English
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
