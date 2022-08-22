@@ -142,6 +142,10 @@ return packer.startup(function(use)
 	use("mfussenegger/nvim-dap")
 	use("rcarriga/nvim-dap-ui")
 
+	-- Golang
+	use("ray-x/go.nvim")
+	use("ray-x/guihua.lua") -- recommanded if need floating window support
+
 	-- OrgMode
 	use("nvim-orgmode/orgmode")
 	use("akinsho/org-bullets.nvim")

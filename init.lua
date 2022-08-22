@@ -35,6 +35,7 @@ require("user.tabnine")
 require("user.sniprun")
 
 require("user.orgmode")
+require("user.go")
 require("user.bullets")
 require("user.comment")
 require("user.todo-comments")
