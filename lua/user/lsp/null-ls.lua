@@ -31,6 +31,8 @@ null_ls.setup({
 
 		-- FORMATTING
 		formatting.fixjson, -- JSON
+		formatting.goimports_reviser, -- Golang
+		formatting.gofmt, -- Golang
 		formatting.prettierd, -- Typescript
 		formatting.black.with({ extra_args = { "--fast" } }), -- Python
 		formatting.stylua, -- Lua

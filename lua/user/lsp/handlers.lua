@@ -84,16 +84,6 @@ local function buf_map(bufnr, mode, lhs, rhs, opts)
 	})
 end
 
-local function lsp_highlight_document(client)
-	-- if client.server_capabilities.document_highlight then
-	local status_ok, illuminate = pcall(require, "illuminate")
-	if not status_ok then
-		return
-	end
-	illuminate.on_attach(client)
-	-- end
-end
-
 local function lsp_commands()
 	vim.cmd("command! LspDeclaration lua vim.lsp.buf.declaration()")
 	vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
@@ -137,7 +127,6 @@ end
 M.on_attach = function(client, bufnr)
 	lsp_commands()
 	lsp_keymaps(bufnr)
-	-- lsp_highlight_document(client)
 end
 
 return M

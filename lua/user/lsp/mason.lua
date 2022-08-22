@@ -18,7 +18,6 @@ local servers = {
 	"cssls",
   "dockerls",
 	"emmet_ls",
-	-- "eslint", => Use Null-ls instead
   "gopls",
 	"graphql",
 	"html",
@@ -26,7 +25,7 @@ local servers = {
 	"pyright",
   "sumneko_lua",
 	"tailwindcss",
-  -- "tsserver", => Use Typescript Initializer instead c.f. typescript.setup(...)
+  -- "tsserver", -- Use Typescript Initializer instead c.f. typescript.setup(...)
 	"yamlls",
 }
 
@@ -102,6 +101,11 @@ for _, server in pairs(servers) do
   if server == "emmet_ls" then
     local emmet_ls_opts = require "user.lsp.settings.emmet_ls"
     opts = vim.tbl_deep_extend("force", emmet_ls_opts, opts)
+  end
+
+  if server == "gopls" then
+    local gopls_opts = require "user.lsp.settings.gopls"
+    opts = vim.tbl_deep_extend("force", gopls_opts, opts)
   end
 
   if server == "jsonls" then
