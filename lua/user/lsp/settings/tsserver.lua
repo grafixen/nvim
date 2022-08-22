@@ -51,8 +51,6 @@ local function buf_map(bufnr, mode, lhs, rhs, opts)
 end
 
 M.on_attach = function(client, bufnr)
-	require("lsp-inlayhints").on_attach(bufnr, client)
-
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
