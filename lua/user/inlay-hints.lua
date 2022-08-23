@@ -47,3 +47,7 @@ hints.setup({
 	},
 	debug_mode = false,
 })
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<leader>ir", ":lua require('lsp-inlayhints').toggle()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>it", ":lua require('lsp-inlayhints').reset()<CR>", opts)
