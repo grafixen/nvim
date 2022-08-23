@@ -73,10 +73,6 @@ return packer.startup(function(use)
 	use("RRethy/vim-illuminate")
 
 	-- File Manager
-	-- use({
-	-- 	"kevinhwang91/rnvimr",
-	-- 	run = "make sync",
-	-- })
 	use("lmburns/lf.nvim")
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
@@ -190,6 +186,10 @@ return packer.startup(function(use)
 	-- use({
 	-- 	"neoclide/coc.nvim",
 	-- 	branch = "release",
+	-- })
+	-- use({
+	-- 	"kevinhwang91/rnvimr",
+	-- 	run = "make sync",
 	-- })
 
 	-- Automatically set up your configuration after cloning packer.nvim
