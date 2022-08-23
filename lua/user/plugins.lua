@@ -59,7 +59,7 @@ return packer.startup(function(use)
 	-- Additional Utlities (Grafixen)
 	use({
 		"phaazon/hop.nvim",
-		branch = "v1", -- optional but strongly recommended
+		branch = "v2", -- optional but strongly recommended
 	})
 	use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
