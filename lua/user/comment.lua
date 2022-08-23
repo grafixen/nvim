@@ -9,11 +9,11 @@ if not status_ok_1 then
 end
 
 comment.setup({
-  extra = {
-    above = 'gcO',  ---Add comment on the line above
-    below = 'gco',  ---Add comment on the line below
-    eol = 'gcA',    ---Add comment at the end of line
-  },
+	extra = {
+		above = "gcO", ---Add comment on the line above
+		below = "gco", ---Add comment on the line below
+		eol = "gcA", ---Add comment at the end of line
+	},
 	pre_hook = function(ctx)
 		-- For inlay hints
 		local line_start = (ctx.srow or ctx.range.srow) - 1

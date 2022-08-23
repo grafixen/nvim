@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 hop.setup({
-  keys = "etovxqpdygfblzhckisuran",
+	keys = "etovxqpdygfblzhckisuran",
 })
 
 vim.cmd("hi HopNextKey guifg=#ff9900")
@@ -14,4 +14,3 @@ vim.cmd("hi HopNextKey2 guifg=#ff9900")
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "s", ":HopWord<CR>", opts)
 vim.api.nvim_set_keymap("n", "S", ":HopChar1<CR>", opts)
-

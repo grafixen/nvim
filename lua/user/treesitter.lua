@@ -27,7 +27,7 @@ configs.setup({
 	context_commentstring = {
 		enable = true,
 		enable_autocmd = false,
-    -- For more config info: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+		-- For more config info: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 		config = {
 			javascript = {
 				__default = "// %s",
