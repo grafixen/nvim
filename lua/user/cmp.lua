@@ -32,7 +32,7 @@ local compare = require("cmp.config.compare")
 
 -- Luasnip
 require("luasnip.loaders.from_vscode").lazy_load({
-	paths = { "/Users/superman/Documents/Snippets/angular" },
+	paths = { "~/Documents/Snippets/angular" },
 })
 
 -- One peculiarity of honza/vim-snippets is that the file containing global
