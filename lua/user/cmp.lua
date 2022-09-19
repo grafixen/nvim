@@ -31,9 +31,11 @@ local str = require("cmp.utils.str")
 local compare = require("cmp.config.compare")
 
 -- Luasnip
-require("luasnip.loaders.from_vscode").lazy_load({
-	paths = { "~/Documents/Snippets/angular" },
-})
+require("luasnip.loaders.from_vscode").lazy_load()
+-- FIXME: The code below deactivates all other snippets when lazyloaded
+-- require("luasnip.loaders.from_vscode").lazy_load({
+-- 	paths = { "~/Documents/Snippets/angular" },
+-- })
 
 -- One peculiarity of honza/vim-snippets is that the file containing global
 -- snippets is _.snippets, so we need to tell luasnip that the filetype "_"
