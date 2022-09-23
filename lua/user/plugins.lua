@@ -171,6 +171,9 @@ return packer.startup(function(use)
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 
+	-- Scratchpad
+	use({ "CRAG666/code_runner.nvim", requires = "nvim-lua/plenary.nvim" })
+
 	-- Graveyard
 	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	-- use("preservim/nerdcommenter") -- Commenting
