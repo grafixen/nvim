@@ -168,7 +168,10 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("p00f/nvim-ts-rainbow")
-
+	use({
+		"abecodes/tabout.nvim",
+		wants = { "nvim-treesitter" }, -- or require if not used so far
+	})
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 
