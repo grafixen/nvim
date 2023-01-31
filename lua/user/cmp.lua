@@ -182,7 +182,7 @@ cmp.setup({
 	},
 	sources = {
 		-- { name = "ultisnips" }, -- For ultisnips users.
-		{ name = "luasnip", group_index = 2 },
+		-- Prioritize cmp output
 		{
 			name = "nvim_lsp",
 			filter = function(entry, ctx)
@@ -197,6 +197,7 @@ cmp.setup({
 			end,
 			group_index = 2,
 		},
+		{ name = "luasnip", group_index = 2 },
 		{
 			name = "buffer",
 			option = {
