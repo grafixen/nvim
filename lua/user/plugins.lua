@@ -118,6 +118,10 @@ return packer.startup(function(use)
 	-- Tabline
 	use("akinsho/bufferline.nvim")
 
+	-- ChatGPT
+	use("MunifTanjim/nui.nvim")
+	use("jackMort/ChatGPT.nvim")
+
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
 	use("williamboman/mason.nvim")

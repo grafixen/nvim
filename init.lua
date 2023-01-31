@@ -32,6 +32,7 @@ require("user.inlay-hints")
 require("user.move")
 require("user.renamer")
 require("user.lf")
+require("user.chatgpt")
 require("user.tabnine")
 require("user.sniprun")
 
