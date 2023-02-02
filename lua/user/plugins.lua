@@ -65,11 +65,6 @@ return packer.startup(function(use)
 	use("kylechui/nvim-surround")
 	use("jeffkreeftmeijer/vim-numbertoggle")
 	use("christoomey/vim-tmux-navigator")
-	use({
-		"tzachar/cmp-tabnine",
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp",
-	})
 	use("rcarriga/nvim-notify")
 	use("RRethy/vim-illuminate")
 
@@ -96,6 +91,23 @@ return packer.startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-emoji")
+	-- CMP: AI
+	use({
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+	})
+	use({
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup({
+				formatters = {
+					insert_text = require("copilot_cmp.format").remove_existing,
+				},
+			})
+		end,
+	})
 
 	-- Multi Cursor
 	use({
@@ -134,6 +146,18 @@ return packer.startup(function(use)
 	use("filipdutescu/renamer.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("b0o/SchemaStore.nvim")
+	-- use("github/copilot.vim")
+	use({
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("user.copilot")
+				-- require("copilot").setup({})
+			end, 100)
+		end,
+	})
 
 	-- Comments
 	use("numToStr/Comment.nvim")

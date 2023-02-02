@@ -128,9 +128,10 @@ cmp.setup({
 			maxwidth = 60,
 			before = function(entry, vim_item)
 				vim_item.menu = ({
+					copilot = "",
 					nvim_lsp = "ﲳ",
 					-- nvim_lua = "",
-					cmp_tabnine = "ﮧ",
+					-- cmp_tabnine = "ﮧ",
 					treesitter = "",
 					path = "ﱮ",
 					buffer = "﬘",
@@ -184,6 +185,37 @@ cmp.setup({
 		-- { name = "ultisnips" }, -- For ultisnips users.
 		-- Prioritize cmp output
 		{
+			name = "copilot",
+			-- keyword_length = 0,
+			max_item_count = 3,
+			trigger_characters = {
+				{
+					".",
+					":",
+					"(",
+					"'",
+					'"',
+					"[",
+					",",
+					"#",
+					"*",
+					"@",
+					"|",
+					"=",
+					"-",
+					"{",
+					"/",
+					"\\",
+					"+",
+					"?",
+					" ",
+					-- "\t",
+					-- "\n",
+				},
+			},
+			group_index = 2,
+		},
+		{
 			name = "nvim_lsp",
 			filter = function(entry, ctx)
 				local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
@@ -198,6 +230,7 @@ cmp.setup({
 			group_index = 2,
 		},
 		{ name = "luasnip", group_index = 2 },
+		-- { name = "cmp_tabnine", group_index = 2 },
 		{
 			name = "buffer",
 			option = {
@@ -207,7 +240,6 @@ cmp.setup({
 			},
 			group_index = 2,
 		},
-		{ name = "cmp_tabnine", group_index = 2 },
 		{ name = "path", group_index = 2 },
 		{ name = "treesitter", group_index = 2 },
 		{ name = "orgmode", group_index = 2 },
