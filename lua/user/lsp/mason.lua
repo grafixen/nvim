@@ -23,7 +23,8 @@ local servers = {
 	"html",
 	"jsonls",
 	"pyright",
-  "sumneko_lua",
+  -- TODO: rewrite LUA_LS: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
+  "lua_ls",
 	"tailwindcss",
   -- "tsserver", -- Use Typescript Initializer instead c.f. typescript.setup(...)
 	"yamlls",
@@ -118,9 +119,9 @@ for _, server in pairs(servers) do
     opts = vim.tbl_deep_extend("force", pyright_opts, opts)
   end
 
-  if server == "sumneko_lua" then
-    local sumneko_opts = require "user.lsp.settings.sumneko_lua"
-    opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+  if server == "lua_ls" then
+    local lua_ls_opts = require "user.lsp.settings.lua_ls"
+    opts = vim.tbl_deep_extend("force", lua_ls_opts, opts)
   end
 
   if server == "tailwindcss" then
