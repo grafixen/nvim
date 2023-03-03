@@ -70,8 +70,10 @@ return packer.startup(function(use)
 
 	-- File Manager
 	use("lmburns/lf.nvim")
-	use("kyazdani42/nvim-web-devicons")
-	use("kyazdani42/nvim-tree.lua")
+	-- use("kyazdani42/nvim-web-devicons")
+	-- use("kyazdani42/nvim-tree.lua")
+	use("nvim-tree/nvim-web-devicons")
+	use("nvim-tree/nvim-tree.lua")
 	use("matze/vim-move")
 
 	-- Markup Languages
