@@ -25,6 +25,7 @@ local servers = {
 	"pyright",
   -- TODO: rewrite LUA_LS: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   "lua_ls",
+  "rust_analyzer",
 	"tailwindcss",
   -- "tsserver", -- Use Typescript Initializer instead c.f. typescript.setup(...)
 	"yamlls",
@@ -132,6 +133,18 @@ for _, server in pairs(servers) do
   if server == "yamlls" then
     local yamlls_opts = require "user.lsp.settings.yamlls"
     opts = vim.tbl_deep_extend("force", yamlls_opts, opts)
+  end
+
+  if server == "rust_analyzer" then
+    local rust_opts = require "user.lsp.settings.rust"
+    -- opts = vim.tbl_deep_extend("force", rust_opts, opts)
+    local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
+    if not rust_tools_status_ok then
+      return
+    end
+
+    rust_tools.setup(rust_opts)
+    goto continue
   end
 
   lspconfig[server].setup(opts)

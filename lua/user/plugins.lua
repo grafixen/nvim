@@ -167,9 +167,10 @@ return packer.startup(function(use)
 
 	-- Debugging
 	use("mfussenegger/nvim-dap")
+	use("theHamsta/nvim-dap-virtual-text")
 	use("rcarriga/nvim-dap-ui")
 
-	-- Golang
+	--Golang
 	use("ray-x/go.nvim")
 	use("ray-x/guihua.lua") -- recommanded if need floating window support
 
@@ -181,6 +182,9 @@ return packer.startup(function(use)
 	-- Project
 	use("ahmedkhalf/project.nvim")
 	use("windwp/nvim-spectre")
+
+	-- Rust
+	use("simrat39/rust-tools.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
@@ -198,8 +202,7 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
-	use("nvim-treesitter/nvim-treesitter-angular")
-	use("p00f/nvim-ts-rainbow")
+	-- use("p00f/nvim-ts-rainbow")
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 

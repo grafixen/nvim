@@ -9,46 +9,29 @@ nvim_tree.setup({
 	hijack_directories = {
 		enable = false,
 	},
-	-- update_to_buf_dir = {
-	--   enable = false,
-	-- },
-	-- disable_netrw = true,
-	-- hijack_netrw = true,
-	-- open_on_setup = false,
-	ignore_ft_on_setup = {
-		"startify",
-		"dashboard",
-		"alpha",
-	},
 	filters = {
 		custom = { ".git" },
 		exclude = { ".gitignore" },
 	},
-	-- auto_close = true,
-	-- open_on_tab = false,
-	-- hijack_cursor = false,
 	update_cwd = true,
-	-- update_to_buf_dir = {
-	--   enable = true,
-	--   auto_open = true,
-	-- },
-	-- --   error
-	-- --   info
-	-- --   question
-	-- --   warning
-	-- --   lightbulb
 	renderer = {
 		add_trailing = false,
 		group_empty = false,
 		highlight_git = false,
+		full_name = false,
 		highlight_opened_files = "none",
-		root_folder_modifier = ":t",
+		highlight_modified = "none",
+		root_folder_label = ":~:s?$?/..?",
+		indent_width = 2,
 		indent_markers = {
 			enable = false,
+			inline_arrows = true,
 			icons = {
-				corner = "└ ",
-				edge = "│ ",
-				none = "  ",
+				corner = "└",
+				edge = "│",
+				item = "│",
+				bottom = "─",
+				none = " ",
 			},
 		},
 		icons = {
@@ -61,10 +44,13 @@ nvim_tree.setup({
 				folder = true,
 				folder_arrow = true,
 				git = true,
+				modified = true,
 			},
 			glyphs = {
 				default = "",
 				symlink = "",
+				bookmark = "",
+				modified = "●",
 				folder = {
 					arrow_open = icons.ui.ArrowOpen,
 					arrow_closed = icons.ui.ArrowClosed,
@@ -76,16 +62,18 @@ nvim_tree.setup({
 					symlink_open = "",
 				},
 				git = {
-					unstaged = "",
-					staged = "S",
+					unstaged = "✗",
+					staged = "✓",
 					unmerged = "",
 					renamed = "➜",
-					untracked = "U",
+					untracked = "★",
 					deleted = "",
 					ignored = "◌",
 				},
 			},
 		},
+		special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+		symlink_destination = true,
 	},
 	diagnostics = {
 		enable = true,
@@ -101,34 +89,38 @@ nvim_tree.setup({
 		update_cwd = true,
 		ignore_list = {},
 	},
-	-- system_open = {
-	--   cmd = nil,
-	--   args = {},
-	-- },
-	-- filters = {
-	--   dotfiles = false,
-	--   custom = {},
-	-- },
 	git = {
 		enable = true,
 		ignore = true,
-		timeout = 500,
+		show_on_dirs = true,
+		show_on_open_dirs = true,
+		timeout = 400,
 	},
 	view = {
 		width = 30,
 		hide_root_folder = false,
 		side = "left",
-		-- auto_resize = true,
-		mappings = {
-			custom_only = false,
-			list = {
-				{ key = { "l", "<CR>", "o" }, action = 'edit', mode = 'n' },
-				{ key = "h", action = 'close_node', mode = 'n' },
-			},
-		},
 		number = false,
 		relativenumber = false,
 		signcolumn = "yes",
+		mappings = {
+			custom_only = false,
+			list = {
+				{ key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
+				{ key = "h", action = "close_node", mode = "n" },
+			},
+		},
+		float = {
+			enable = false,
+			quit_on_focus_loss = true,
+			open_win_config = {
+				relative = "editor",
+				border = "single",
+				width = 30,
+				height = 30,
+				row = 1,
+				col = 1,
+			},
+		},
 	},
 })
-

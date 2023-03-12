@@ -118,6 +118,7 @@ local mappings = {
 		name = "Find",
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 		c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+		e = { "<cmd>Telescope file_browser<cr>", "File Browser" },
 		f = { "<cmd>Telescope find_files<cr>", "Find files" },
 		t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
 		s = { "<cmd>Telescope grep_string<cr>", "Find String" },

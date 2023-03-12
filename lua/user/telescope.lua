@@ -6,10 +6,6 @@ end
 local actions = require("telescope.actions")
 local icons = require("user.icons")
 
-telescope.load_extension("file_browser")
-telescope.load_extension("media_files")
-telescope.load_extension("projects")
-
 telescope.setup({
 	defaults = {
 		prompt_prefix = icons.ui.Telescope .. " ",
@@ -157,11 +153,9 @@ telescope.setup({
 			-- theme = "dropdown",
 		},
 		find_files = {
-			-- theme = "dropdown",
 			previewer = false,
 		},
 		buffers = {
-			-- theme = "dropdown",
 			previewer = false,
 			initial_mode = "normal",
 		},
@@ -173,19 +167,15 @@ telescope.setup({
 			enable_preview = true,
 		},
 		lsp_references = {
-			-- theme = "dropdown",
 			initial_mode = "normal",
 		},
 		lsp_definitions = {
-			-- theme = "dropdown",
 			initial_mode = "normal",
 		},
 		lsp_declarations = {
-			-- theme = "dropdown",
 			initial_mode = "normal",
 		},
 		lsp_implementations = {
-			-- theme = "dropdown",
 			initial_mode = "normal",
 		},
 		diagnostics = {
@@ -210,11 +200,8 @@ telescope.setup({
 			find_cmd = "rg", -- find command (defaults to `fd`)
 		},
 		file_browser = {
-			-- theme = "ivy",
-			-- require("telescope.themes").get_dropdown {
-			--   previewer = false,
-			--   -- even more opts
-			-- },
+			theme = "ivy",
+			hijack_netrw = true,
 			mappings = {
 				["i"] = {
 					-- your custom insert mode mappings
@@ -238,3 +225,7 @@ local options = { silent = true, noremap = true }
 
 -- Launch Telescope without any argument
 keymap("n", "tt", "<cmd>lua require('telescope.builtin').builtin() <CR>", options)
+
+telescope.load_extension("file_browser")
+telescope.load_extension("media_files")
+telescope.load_extension("projects")
