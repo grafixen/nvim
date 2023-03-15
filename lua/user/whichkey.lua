@@ -226,6 +226,20 @@ local mappings = {
 		s = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},
+	x = {
+		name = "CoPilot",
+		c = { "<cmd>Copilot panel<cr>", "Panel" },
+		i = { "<cmd>Copilot status<cr>", "Status" },
+		s = { "<cmd>Copilot suggestion<cr>", "Suggest" },
+		v = { "<cmd>Copilot version<cr>", "Version" },
+	},
+	X = {
+		name = "ChatGPT",
+		c = { "<cmd>ChatGPT<cr>", "Chat" },
+		a = { "<cmd>ChatGPTActAs<cr>", "Act As" },
+		e = { "<cmd>ChatGPTEditWithInstructions<cr>", "Edit" },
+		r = { "<cmd>ChatRunCustomCodeAction<cr>", "Code Action" },
+	},
 }
 
 which_key.setup(setup)
