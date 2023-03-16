@@ -1,5 +1,27 @@
--- wrap selection in JSON.stringify(*)
-vim.api.nvim_buf_set_keymap(0, "v", ",js", [[cJSON.stringify(<c-r>"<esc>>]], { noremap = false })
+local status_ok, which_key = pcall(require, "which-key")
+if not status_ok then
+	return
+end
 
--- wrap selection in console.log
-vim.api.nvim_buf_set_keymap(0, "v", ",cl", [[cconsole.log(<c-r>"<esc>]], { noremap = false })
+local opts = {
+	mode = "n", -- NORMAL mode
+	prefix = "<leader>",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = true, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = true, -- use `nowait` when creating keymaps
+}
+
+local mappings = {
+	C = {
+		name = "Javascript",
+		i = { "<cmd>TypescriptAddMissingImports<Cr>", "AddMissingImports" },
+		o = { "<cmd>TypescriptOrganizeImports<cr>", "OrganizeImports" },
+		u = { "<cmd>TypescriptRemoveUnused<Cr>", "RemoveUnused" },
+		r = { "<cmd>TypescriptRenameFile<Cr>", "RenameFile" },
+		f = { "<cmd>TypescriptFixAll<Cr>", "FixAll" },
+		g = { "<cmd>TypescriptGoToSourceDefinition<Cr>", "GoToSourceDefinition" },
+	},
+}
+
+which_key.register(mappings, opts)

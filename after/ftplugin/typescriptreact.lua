@@ -14,7 +14,7 @@ local opts = {
 
 local mappings = {
 	C = {
-		name = "Typescript",
+		name = "Typescriptreact",
 		i = { "<cmd>TypescriptAddMissingImports<Cr>", "AddMissingImports" },
 		o = { "<cmd>TypescriptOrganizeImports<cr>", "OrganizeImports" },
 		u = { "<cmd>TypescriptRemoveUnused<Cr>", "RemoveUnused" },
