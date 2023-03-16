@@ -100,17 +100,17 @@ return packer.startup(function(use)
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp",
 	})
-	use({
-		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup({
-				formatters = {
-					insert_text = require("copilot_cmp.format").remove_existing,
-				},
-			})
-		end,
-	})
+	-- use({
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	after = { "copilot.lua" },
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup({
+	-- 			formatters = {
+	-- 				insert_text = require("copilot_cmp.format").remove_existing,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
 
 	-- Multi Cursor
 	use({
@@ -124,7 +124,7 @@ return packer.startup(function(use)
 		wants = { "friendly-snippets", "vim-snippets" },
 	}) --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
-	use("honza/vim-snippets")
+	-- use("honza/vim-snippets")
 
 	-- Tabline
 	use("akinsho/bufferline.nvim")
@@ -145,17 +145,17 @@ return packer.startup(function(use)
 	use("filipdutescu/renamer.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("b0o/SchemaStore.nvim")
-	use({
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = { "VimEnter" },
-		config = function()
-			vim.defer_fn(function()
-				require("user.copilot")
-				-- require("copilot").setup({})
-			end, 100)
-		end,
-	})
+	-- use({
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = { "VimEnter" },
+	-- 	config = function()
+	-- 		vim.defer_fn(function()
+	-- 			require("user.copilot")
+	-- 			-- require("copilot").setup({})
+	-- 		end, 100)
+	-- 	end,
+	-- })
 
 	-- Comments
 	use("numToStr/Comment.nvim")

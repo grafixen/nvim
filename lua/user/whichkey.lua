@@ -166,7 +166,7 @@ local mappings = {
 			"<cmd>LspDiagLine()<CR>",
 			"Show Line Diagnostics",
 		},
-		f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+		f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
 		F = { "<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Range Format" },
 		i = { "<cmd>LspInfo<cr>", "LSP Info" },
 		I = { "<cmd>NullLsInfo<cr>", "Null-ls Info" },
@@ -227,13 +227,6 @@ local mappings = {
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},
 	x = {
-		name = "CoPilot",
-		c = { "<cmd>Copilot panel<cr>", "Panel" },
-		i = { "<cmd>Copilot status<cr>", "Status" },
-		s = { "<cmd>Copilot suggestion<cr>", "Suggest" },
-		v = { "<cmd>Copilot version<cr>", "Version" },
-	},
-	X = {
 		name = "ChatGPT",
 		c = { "<cmd>ChatGPT<cr>", "Chat" },
 		a = { "<cmd>ChatGPTActAs<cr>", "Act As" },

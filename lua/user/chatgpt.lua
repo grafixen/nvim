@@ -64,26 +64,31 @@ chatgpt.setup({
 	--   },
 	keymaps = {
 		close = { "<C-c>", "<Esc>" },
+		submit = "<C-Enter>",
 		yank_last = "<C-y>",
-		scroll_up = "<C-k>",
-		scroll_down = "<C-j>",
+		yank_last_code = "<C-k>",
+		scroll_up = "<C-u>",
+		scroll_down = "<C-d>",
 		toggle_settings = "<C-o>",
 		new_session = "<C-n>",
 		cycle_windows = "<C-l>",
+		-- in the Sessions pane
+		select_session = "<Space>",
+		rename_session = "r",
+		delete_session = "d",
 	},
+	-- keymaps = {
+	-- 	close = { "<C-c>", "<Esc>" },
+	-- 	yank_last = "<C-y>",
+	-- 	scroll_up = "<C-k>",
+	-- 	scroll_down = "<C-j>",
+	-- 	toggle_settings = "<C-o>",
+	-- 	new_session = "<C-n>",
+	-- 	cycle_windows = "<C-l>",
+	-- 	submit = "<C-Enter>",
+	-- },
 })
 
 local opts = { noremap = true, silent = true }
-
 local keymap = vim.keymap.set
-
 keymap("n", "<c-p>", "<cmd>ChatGPT<cr>", opts)
-
--- <C-c> to close chat window.
--- <C-u> scroll up chat window.
--- <C-d> scroll down chat window.
--- <C-y> to copy/yank last answer.
--- <C-o> Toggle settings window.
--- <C-n> Start new session.
--- <Tab> Cycle over windows.
--- <C-i> [Edit Window] use response as input.

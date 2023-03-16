@@ -3,11 +3,6 @@ if not cmp_status_ok then
 	return
 end
 
-local lspkind_ok, lspkind = pcall(require, "lspkind")
-if not lspkind_ok then
-	return
-end
-
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
 	return
@@ -23,11 +18,13 @@ local check_backspace = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
--- local icons = require("user.icons")
--- local kind_icons = icons.kind
+local icons = require("user.icons")
+local kind_icons = icons.kind
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
+vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
+vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
 
-local types = require("cmp.types")
-local str = require("cmp.utils.str")
 local compare = require("cmp.config.compare")
 
 -- Luasnip
@@ -40,22 +37,21 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- One peculiarity of honza/vim-snippets is that the file containing global
 -- snippets is _.snippets, so we need to tell luasnip that the filetype "_"
 -- contains global snippets:
-luasnip.filetype_extend("all", { "_" })
 luasnip.filetype_extend("typescript", { "javascript" })
 luasnip.filetype_extend("html", { "javascript" })
 
+vim.g.cmp_active = true
 cmp.setup({
-	-- enabled = function()
-	--   local buftype = vim.api.nvim_buf_get_option(0, "buftype")
-	--   if buftype == "prompt" then
-	--     return false
-	--   end
-	--   return vim.g.cmp_active
-	-- end,
+	enabled = function()
+		local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+		if buftype == "prompt" then
+			return false
+		end
+		return vim.g.cmp_active
+	end,
 	preselect = cmp.PreselectMode.None,
 	snippet = {
 		expand = function(args)
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For ultisnips users.
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
@@ -83,18 +79,10 @@ cmp.setup({
 			elseif luasnip.expandable() then
 				luasnip.expand()
 			elseif check_backspace() then
-				-- cmp.complete()
 				fallback()
 			else
 				fallback()
 			end
-			-- if cmp.visible() then
-			--   cmp.select_next_item()
-			-- elseif check_backspace() then
-			--   fallback()
-			-- else
-			--   fallback()
-			-- end
 		end, {
 			"i",
 			"s",
@@ -107,11 +95,6 @@ cmp.setup({
 			else
 				fallback()
 			end
-			-- if cmp.visible() then
-			--   cmp.select_prev_item()
-			-- else
-			--   fallback()
-			-- end
 		end, {
 			"i",
 			"s",
@@ -123,70 +106,55 @@ cmp.setup({
 			cmp.ItemField.Kind,
 			cmp.ItemField.Menu,
 		},
-		format = lspkind.cmp_format({
-			mode = "symbol_text",
-			maxwidth = 60,
-			before = function(entry, vim_item)
-				vim_item.menu = ({
-					copilot = "",
-					nvim_lsp = "ﲳ",
-					-- nvim_lua = "",
-					-- cmp_tabnine = "ﮧ",
-					treesitter = "",
-					path = "ﱮ",
-					buffer = "﬘",
-					-- zsh = "",
-					-- ultisnips = "",
-					luasnip = "",
-					spell = "暈",
-				})[entry.source.name]
+		format = function(entry, vim_item)
+			-- Kind icons
+			vim_item.kind = kind_icons[vim_item.kind]
 
-				-- Get the full snippet (and only keep first line)
-				local word = entry:get_insert_text()
-				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
-					word = vim.lsp.util.parse_snippet(word)
-				end
-				word = str.oneline(word)
-				if
-					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
-					and string.sub(vim_item.abbr, -1, -1) == "~"
-				then
-					word = word .. "~"
-				end
-				vim_item.abbr = word
+			if entry.source.name == "cmp_tabnine" then
+				vim_item.kind = icons.misc.Robot
+				vim_item.kind_hl_group = "CmpItemKindTabnine"
+			end
+			if entry.source.name == "copilot" then
+				vim_item.kind = icons.git.Octoface
+				vim_item.kind_hl_group = "CmpItemKindCopilot"
+			end
 
-				return vim_item
-			end,
-		}),
-		-- format = function(entry, vim_item)
-		--   -- Kind icons
-		--   vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-		--
-		--   if entry.source.name == "cmp_tabnine" then
-		--     -- if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-		--     -- menu = entry.completion_item.data.detail .. " " .. menu
-		--     -- end
-		--     vim_item.kind = icons.misc.Robot
-		--   end
-		--
-		--   -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-		--   vim_item.menu = ({
-		--     ultisnips = "[Snippet]", -- For ultisnips users.
-		--     nvim_lsp = "[LSP]",
-		--     buffer = "[Buffer]",
-		--     cmp_tabnine = "[TN]",
-		--     path = "[Path]",
-		--     emoji = "[Emoji]",
-		--   })[entry.source.name]
-		--   return vim_item
-		-- end,
+			if entry.source.name == "emoji" then
+				vim_item.kind = icons.misc.Smiley
+				vim_item.kind_hl_group = "CmpItemKindEmoji"
+			end
+
+			if entry.source.name == "crates" then
+				vim_item.kind = icons.misc.Package
+				vim_item.kind_hl_group = "CmpItemKindCrate"
+			end
+
+			if entry.source.name == "lab.quick_data" then
+				vim_item.kind = icons.misc.CircuitBoard
+				vim_item.kind_hl_group = "CmpItemKindConstant"
+			end
+
+			-- NOTE: order matters
+			vim_item.menu = ({
+				nvim_lsp = "(LSP)",
+				emoji = "(Emoji)",
+				path = "(Path)",
+				calc = "(Calc)",
+				cmp_tabnine = "(Tabnine)",
+				vsnip = "(Snippet)",
+				luasnip = "(Snippet)",
+				buffer = "(Buffer)",
+				tmux = "(TMUX)",
+				copilot = "(Copilot)",
+				treesitter = "(TreeSitter)",
+			})[entry.source.name]
+			return vim_item
+		end,
 	},
 	sources = {
-		-- { name = "ultisnips" }, -- For ultisnips users.
 		-- Prioritize cmp output
 		{
 			name = "copilot",
-			-- keyword_length = 0,
 			max_item_count = 3,
 			trigger_characters = {
 				{
@@ -230,7 +198,7 @@ cmp.setup({
 			group_index = 2,
 		},
 		{ name = "luasnip", group_index = 2 },
-		-- { name = "cmp_tabnine", group_index = 2 },
+		{ name = "cmp_tabnine", group_index = 2 },
 		{
 			name = "buffer",
 			option = {
@@ -243,7 +211,7 @@ cmp.setup({
 		{ name = "path", group_index = 2 },
 		{ name = "treesitter", group_index = 2 },
 		{ name = "orgmode", group_index = 2 },
-		-- { name = "emoji" },
+		{ name = "emoji" },
 	},
 	sorting = {
 		priority_weight = 2,
