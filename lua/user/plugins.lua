@@ -56,6 +56,7 @@ return packer.startup(function(use)
 	use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
 	use("folke/which-key.nvim")
 	use("nguyenvukhang/nvim-toggler")
+	use("j-hui/fidget.nvim")
 
 	-- Additional Utlities (Grafixen)
 	use({
@@ -124,10 +125,6 @@ return packer.startup(function(use)
 	}) --snippet engine
 	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	use("honza/vim-snippets")
-	use({
-		"michaelb/sniprun",
-		run = "./install.sh",
-	})
 
 	-- Tabline
 	use("akinsho/bufferline.nvim")
@@ -148,7 +145,6 @@ return packer.startup(function(use)
 	use("filipdutescu/renamer.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("b0o/SchemaStore.nvim")
-	-- use("github/copilot.vim")
 	use({
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
@@ -183,6 +179,13 @@ return packer.startup(function(use)
 	use("ahmedkhalf/project.nvim")
 	use("windwp/nvim-spectre")
 
+	-- QuickRun
+	use("is0n/jaq-nvim")
+	use({
+		"michaelb/sniprun",
+		run = "./install.sh",
+	})
+
 	-- Rust
 	use("simrat39/rust-tools.nvim")
 
@@ -202,14 +205,12 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter-context")
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
-	-- use("p00f/nvim-ts-rainbow")
+
 	-- Git
 	use("lewis6991/gitsigns.nvim")
 
-	-- Scratchpad
-	use({ "CRAG666/code_runner.nvim", requires = "nvim-lua/plenary.nvim" })
-
 	-- Graveyard
+	-- use("p00f/nvim-ts-rainbow")
 	-- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	-- use("preservim/nerdcommenter") -- Commenting
 	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -233,6 +234,8 @@ return packer.startup(function(use)
 	-- 	"abecodes/tabout.nvim",
 	-- 	wants = { "nvim-treesitter" }, -- or require if not used so far
 	-- })
+	-- use("github/copilot.vim")
+	-- use({ "CRAG666/code_runner.nvim", requires = "nvim-lua/plenary.nvim" })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

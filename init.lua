@@ -14,7 +14,7 @@ require("user.telescope")
 require("user.treesitter")
 require("user.autopairs")
 
-require("user.code-runner")
+require("user.fidget")
 require("user.gitsigns")
 require("user.nvim-tree")
 require("user.bufferline")
@@ -35,9 +35,10 @@ require("user.move")
 require("user.renamer")
 require("user.lf")
 
--- require("user.copilot")
 require("user.chatgpt")
 require("user.tabnine")
+
+require("user.jaq")
 require("user.sniprun")
 
 require("user.orgmode")
