@@ -47,15 +47,15 @@ chatgpt.setup({
 	--       },
 	--     },
 	--   },
-	--   openai_params = {
-	--     model = "text-davinci-003",
-	--     frequency_penalty = 0,
-	--     presence_penalty = 0,
-	--     max_tokens = 300,
-	--     temperature = 0,
-	--     top_p = 1,
-	--     n = 1,
-	--   },
+	openai_params = {
+		model = "gpt-4-turbo",
+		frequency_penalty = 0,
+		presence_penalty = 0,
+		max_tokens = 300,
+		temperature = 0,
+		top_p = 1,
+		n = 1,
+	},
 	--   openai_edit_params = {
 	--     model = "code-davinci-edit-001",
 	--     temperature = 0,
@@ -77,16 +77,6 @@ chatgpt.setup({
 		rename_session = "r",
 		delete_session = "d",
 	},
-	-- keymaps = {
-	-- 	close = { "<C-c>", "<Esc>" },
-	-- 	yank_last = "<C-y>",
-	-- 	scroll_up = "<C-k>",
-	-- 	scroll_down = "<C-j>",
-	-- 	toggle_settings = "<C-o>",
-	-- 	new_session = "<C-n>",
-	-- 	cycle_windows = "<C-l>",
-	-- 	submit = "<C-Enter>",
-	-- },
 })
 
 local opts = { noremap = true, silent = true }
