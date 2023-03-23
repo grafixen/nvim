@@ -39,6 +39,8 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- contains global snippets:
 luasnip.filetype_extend("typescript", { "javascript" })
 luasnip.filetype_extend("html", { "javascript" })
+luasnip.filetype_extend("javascriptreact", { "javascript" })
+luasnip.filetype_extend("typescriptreact", { "javascript" })
 
 vim.g.cmp_active = true
 cmp.setup({
