@@ -17,7 +17,3 @@ surround.setup({
 		change = "cs",
 	},
 })
-
-vim.cmd([[nmap <leader>` ysiw`]])
-vim.cmd([[nmap <leader>' ysiw']])
-vim.cmd([[nmap <leader>" ysiw"]])
