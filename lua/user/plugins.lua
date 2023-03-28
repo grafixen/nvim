@@ -81,6 +81,19 @@ return packer.startup(function(use)
 	use("alvan/vim-closetag")
 	use("andreshazard/vim-freemarker")
 
+	-- YAML
+	use({
+		"someone-stole-my-name/yaml-companion.nvim",
+		requires = {
+			{ "neovim/nvim-lspconfig" },
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		config = function()
+			require("telescope").load_extension("yaml_schema")
+		end,
+	})
+
 	-- Colorschemes
 	use("lunarvim/darkplus.nvim")
 	use("marko-cerovac/material.nvim")

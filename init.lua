@@ -2,10 +2,13 @@ require("user.options")
 require("user.keymaps")
 require("user.plugins")
 require("user.autocommands")
+-- require("user.functions")
 require("user.colorscheme")
 
 require("user.cmp")
 require("user.lsp")
+
+require("user.yaml-companion")
 
 require("user.dap")
 require("user.dap-virtual-text")

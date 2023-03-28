@@ -6,7 +6,7 @@ vim.cmd([[
     call feedkeys("\<esc>`.")
   endfunction
   function TestI()
-    let b:caret = winsaveview()    
+    let b:caret = winsaveview()
     %SnipRun
     call winrestview(b:caret)
   endfunction
@@ -109,8 +109,8 @@ end
 function M.enable_format_on_save()
 	vim.cmd([[
     augroup format_on_save
-      autocmd! 
-      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false }) 
+      autocmd!
+      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })
     augroup end
   ]])
 	vim.notify("Enabled format on save")
@@ -135,7 +135,16 @@ function M.remove_augroup(name)
 	end
 end
 
+function M.get_schema()
+	local schema = require("yaml-companion").get_buf_schema(0)
+	if schema.result[1].name == "none" then
+		return ""
+	end
+	return schema.result[1].name
+end
+
 vim.cmd([[ command! SnipRunToggle execute 'lua require("user.functions").toggle_sniprun()' ]])
+vim.cmd([[ command! YamlGetSchema execute 'lua require("user.functions").get_schema()' ]])
 vim.cmd([[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]])
 
 return M
