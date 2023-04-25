@@ -39,6 +39,7 @@ require("user.renamer")
 require("user.lf")
 
 require("user.chatgpt")
+require("user.neoai")
 require("user.tabnine")
 
 require("user.jaq")

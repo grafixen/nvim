@@ -145,6 +145,7 @@ return packer.startup(function(use)
 	-- ChatGPT
 	use("MunifTanjim/nui.nvim")
 	use("jackMort/ChatGPT.nvim")
+	use("Bryley/neoai.nvim")
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
