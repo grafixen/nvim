@@ -14,7 +14,7 @@ neoai.setup({
 	models = {
 		{
 			name = "openai",
-			model = "gpt-4-turbo",
+			model = "gpt-3.5-turbo",
 		},
 	},
 	register_output = {
