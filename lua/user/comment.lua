@@ -14,6 +14,12 @@ comment.setup({
 		below = "gco", ---Add comment on the line below
 		eol = "gcA", ---Add comment at the end of line
 	},
+	toggler = {
+		---Line-comment toggle keymap
+		line = "gcc",
+		---Block-comment toggle keymap
+		block = "gbc",
+	},
 	pre_hook = function(ctx)
 		-- For inlay hints
 		local line_start = (ctx.srow or ctx.range.srow) - 1
