@@ -56,7 +56,10 @@ return packer.startup(function(use)
 	use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
 	use("folke/which-key.nvim")
 	use("nguyenvukhang/nvim-toggler")
-	use("j-hui/fidget.nvim")
+	use({
+		"j-hui/fidget.nvim",
+		tag = "legacy",
+	})
 
 	-- Additional Utlities (Grafixen)
 	use({
@@ -98,6 +101,7 @@ return packer.startup(function(use)
 	use("lunarvim/darkplus.nvim")
 	use("marko-cerovac/material.nvim")
 	use("ray-x/starry.nvim")
+	use("folke/tokyonight.nvim")
 
 	-- CMP
 	use("hrsh7th/nvim-cmp") -- The completion plugin
