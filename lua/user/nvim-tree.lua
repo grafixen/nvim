@@ -176,10 +176,6 @@ nvim_tree.setup({
 		number = false,
 		relativenumber = false,
 		signcolumn = "yes",
-		mappings = {
-			custom_only = false,
-			list = {},
-		},
 		float = {
 			enable = false,
 			quit_on_focus_loss = true,
