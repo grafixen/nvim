@@ -47,6 +47,7 @@ chatgpt.setup({
 	--       },
 	--     },
 	--   },
+	api_host_cmd = "echo -n 'api.openai.com'",
 	openai_params = {
 		model = "gpt-4-turbo",
 		frequency_penalty = 0,
