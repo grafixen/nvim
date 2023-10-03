@@ -51,15 +51,14 @@ vim.wo.colorcolumn = "99999"
 -- vim.opt.listchars:append("precedes:<")
 
 ibl.setup({
-	show_current_context = true,
-	space_char_blankline = " ",
+	-- show_current_context = true,
+	-- space_char_blankline = " ",
 	indent = {
 		char = "▎",
 		tab_char = "▎",
 		highlight = highlight,
 	},
 	whitespace = {
-		enable = true,
 		remove_blankline_trail = true,
 	},
 	scope = {
@@ -105,7 +104,6 @@ ibl.setup({
 					"method",
 					"operation_type",
 					"try_statement",
-					"return",
 				},
 			},
 		},
