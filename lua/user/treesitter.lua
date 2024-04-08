@@ -1,9 +1,14 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
+local ts_status_ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+if not ts_status_ok then
 	return
 end
 
-configs.setup({
+local cmt_status_ok, ts_cmt_configs = pcall(require, "ts_context_commentstring")
+if not cmt_status_ok then
+	return
+end
+
+ts_configs.setup({
 	ensure_installed = "all", --  one of "all" or a list of languages
 	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 	ignore_install = { "" }, -- List of parsers to ignore installing
@@ -24,21 +29,21 @@ configs.setup({
 			node_decremental = "<S-TAB>",
 		},
 	},
-	context_commentstring = {
-		enable = true,
-		enable_autocmd = false,
-		-- For more config info: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-		config = {
-			javascript = {
-				__default = "// %s",
-				jsx_element = "{/* %s */}",
-				jsx_fragment = "{/* %s */}",
-				jsx_attribute = "// %s",
-				comment = "// %s",
-			},
-			typescript = { __default = "// %s", __multiline = "/* %s */" },
-		},
-	},
+	-- context_commentstring = {
+	-- 	enable = true,
+	-- 	enable_autocmd = false,
+	-- 	-- For more config info: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+	-- 	config = {
+	-- 		javascript = {
+	-- 			__default = "// %s",
+	-- 			jsx_element = "{/* %s */}",
+	-- 			jsx_fragment = "{/* %s */}",
+	-- 			jsx_attribute = "// %s",
+	-- 			comment = "// %s",
+	-- 		},
+	-- 		typescript = { __default = "// %s", __multiline = "/* %s */" },
+	-- 	},
+	-- },
 	autotag = {
 		enable = true,
 		disable = { "xml", "markdown" },
@@ -162,5 +167,19 @@ configs.setup({
 				[",A"] = "@parameter.inner",
 			},
 		},
+	},
+})
+
+ts_cmt_configs.setup({
+	enable_autocmd = false,
+	languages = {
+		javascript = {
+			__default = "// %s",
+			jsx_element = "{/* %s */}",
+			jsx_fragment = "{/* %s */}",
+			jsx_attribute = "// %s",
+			comment = "// %s",
+		},
+		typescript = { __default = "// %s", __multiline = "/* %s */" },
 	},
 })
