@@ -190,6 +190,9 @@ return packer.startup(function(use)
 		requires = "kevinhwang91/promise-async",
 	})
 
+	-- UndoTree
+	use("mbbill/undotree")
+
 	--Golang
 	use("ray-x/go.nvim")
 	use("ray-x/guihua.lua") -- recommanded if need floating window support
