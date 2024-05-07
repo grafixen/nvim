@@ -44,6 +44,12 @@ null_ls.setup({
 			diagnostics_format = "[eslint] #{m}\n(#{c})",
 		}), -- Typescript
 		diagnostics.write_good, -- English
+		diagnostics.mypy.with({
+			extra_args = function()
+				local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+				return { "--python-executable", virtual .. "/bin/python3" }
+			end,
+		}), -- Python
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then

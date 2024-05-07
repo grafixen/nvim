@@ -22,9 +22,10 @@ local servers = {
 	"graphql",
 	"html",
 	"jsonls",
-	"pyright",
+	"pyright", -- python
   -- TODO: rewrite LUA_LS: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
   "lua_ls",
+  "ruff_lsp", -- python
   "rust_analyzer",
 	"tailwindcss",
   -- "tsserver", -- Use Typescript Initializer instead c.f. typescript.setup(...)
